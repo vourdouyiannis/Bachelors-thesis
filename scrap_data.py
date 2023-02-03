@@ -1,3 +1,5 @@
+#VOURDOUGIANNIS DIMITRIOS 4326
+
 import praw
 from praw.models import MoreComments
 import pandas as pd
@@ -26,18 +28,18 @@ i = 0
 for comment in submission.comments.list():
     if isinstance(comment, MoreComments):
         continue
-    if comment.is_root:
-        forest.append([])
-        forest[i].append(comment.body)
-        ids.append(comment.id)
+    if comment.body == "[deleted]" or comment.body == "[removed]":
+        continue
     else:
-        print("here")
-        if (comment.parent_id[3:]) in ids:
-            print("here")
-
-    if i==27:
-        print("here")
-    print(str(i)+".", comment.body)
+        if comment.is_root:
+            forest.append([])
+            forest[i].append(comment.body)
+            ids.append(comment.id)
+        else:
+            for i in range(len(ids)):
+                if comment.parent_id[3:] == ids[i]:
+                    forest[i].append(comment.body)
+                    ids[i] = comment.id
     i += 1
 
 # tree = []
@@ -52,6 +54,8 @@ for comment in submission.comments.list():
 #     print(tree)
 #
 # get_comments_tree()
+for i in range(len(forest)):
+    print(str(i)+".", forest[i])
 print(forest)
 print(ids)
 
