@@ -2,6 +2,7 @@
 
 import praw
 from praw.models import MoreComments
+from anytree import Node, RenderTree
 import pandas as pd
 
 # Create an instance
@@ -20,45 +21,20 @@ for post in subreddit:
 # Get the first submission (The one with the most upvotes too)
 submission = reddit.submission(id=postsID[0])
 
-# Get all the comments (CommentForest)
-forest = []
-ids = []
-i = 0
-#TODO get the submission in the first element of the list
-for comment in submission.comments.list():
-    if isinstance(comment, MoreComments):
-        continue
-    if comment.body == "[deleted]" or comment.body == "[removed]":
-        continue
-    else:
-        if comment.is_root:
-            forest.append([])
-            forest[i].append(comment.body)
-            ids.append(comment.id)
-        else:
-            for i in range(len(ids)):
-                if comment.parent_id[3:] == ids[i]:
-                    forest[i].append(comment.body)
-                    ids[i] = comment.id
-    i += 1
+# Get a tree with all comments in depth-first search
+tree = []
 
-# tree = []
-# def get_comments_tree(x=submission.comments):
-#     i = 0
-#     for comment in submission.comments:
-#         tree.append(comment.body)
-#         if isinstance(comment, MoreComments):
-#             continue
-#         print(str(i) + ".", comment.body)
-#         i += 1
-#     print(tree)
-#
-# get_comments_tree()
-for i in range(len(forest)):
-    print(str(i)+".", forest[i])
-print(forest)
-print(ids)
+comment_stack = submission.comments[:]
+submission.comments.replace_more(limit=None)
+while comment_stack:
+        comment = comment_stack.pop(0)
+        tree.append(comment)
+        # if len(comment.replies) == 0:
+        #     tree.append("end")
+        # else:
+        #     tree.append("more")
+        comment_stack[0:0] = comment.replies
 
-# Converting the comments list into a pandas data frame
-# comments_df = pd.DataFrame(comments, columns=['comment'])
-# print(comments_df)
+for comment in tree:
+    print(comment.body)
+    print("################################")
