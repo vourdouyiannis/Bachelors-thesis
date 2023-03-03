@@ -1,4 +1,4 @@
-#VOURDOUGIANNIS DIMITRIOS 4326
+# VOURDOUGIANNIS DIMITRIOS 4326 #
 
 import praw
 from praw.models import MoreComments
@@ -11,7 +11,7 @@ reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkG
 # For subreddit COVID19
 # Search the keyword "vaccine"
 # Get the top 5 posts
-subreddit = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=2)
+subreddit = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=1)
 
 # Collect post's ids in case we need them.
 postsID = []
