@@ -1,9 +1,9 @@
 # VOURDOUGIANNIS DIMITRIOS 4326 #
 
+import json
 import praw
 from praw.models import MoreComments
-from anytree import Node, RenderTree
-import pandas as pd
+import os
 
 # Create an instance
 reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkGIPcLH1rzXlyWmrAVHGVc8g", user_agent="vourdouyiannis")
@@ -11,30 +11,72 @@ reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkG
 # For subreddit COVID19
 # Search the keyword "vaccine"
 # Get the top 5 posts
-subreddit = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=1)
+subreddit = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=5)
 
-# Collect post's ids in case we need them.
-postsID = []
+# Process the posts data
+posts = []
 for post in subreddit:
-    postsID.append(post.id)
+    post_data = {
+        'id': post.id,
+        'title': post.title,
+        'author': post.author.name,
+        'content': post.selftext,
+    }
+    posts.append(post_data)
 
-# Get the first submission (The one with the most upvotes too)
-submission = reddit.submission(id=postsID[0])
+# Save the posts data to a JSON file
+with open('posts.json', 'w') as f:
+    json.dump(posts, f)
 
-# Get a tree with all comments in depth-first search
-tree = []
+# Load the posts to pick the post we want to make a tree
+with open('posts.json', 'r') as f:
+    posts_dict = json.load(f)
 
-comment_stack = submission.comments[:]
-submission.comments.replace_more(limit=None)
-while comment_stack:
+def make_tree(submission):
+    # Sort the comments into a tree
+    tree = []
+    comment_stack = submission.comments[:]
+    submission.comments.replace_more(limit=None)
+    while comment_stack:
         comment = comment_stack.pop(0)
+        if isinstance(comment, MoreComments):
+            continue
         tree.append(comment)
-        # if len(comment.replies) == 0:
-        #     tree.append("end")
-        # else:
-        #     tree.append("more")
         comment_stack[0:0] = comment.replies
 
-for comment in tree:
-    print(comment.body)
-    print("################################")
+    # Process the tree's data
+    comments = []
+    for comment in tree:
+        if comment.author is None or comment.author == "AutoModerator":
+            continue
+        else:
+            comment_data = {
+                'id': comment.id,
+                'author': comment.author.name,
+                'content': comment.body,
+            }
+            comments.append(comment_data)
+
+    # Store the trees into a JSON file
+    # Check if the file exists and is not empty
+    if os.path.isfile('comments.json') and os.path.getsize('comments.json') > 0:
+        # Open the file for reading
+        with open('comments.json', 'r') as f:
+            data = json.load(f)
+
+        # Append new data to existing data
+        data.append(comments)
+
+        # Write the updated data to the file
+        with open('comments.json', 'w') as f:
+            json.dump(data, f)
+    else:
+        # Write new data to the file
+        with open('comments.json', 'w') as f:
+            json.dump([comments], f)
+
+# We get 5 posts to make trees
+for i in range(5):
+    # Get submission of each post
+    submission = reddit.submission(id=posts_dict[i]['id'])
+    make_tree(submission)
