@@ -23,16 +23,19 @@ for post in subreddit:
     }
     posts.append(post_data)
 
+posts_filename = 'resources/posts.json'
+comments_filename = 'resources/comments.json'
+
 # Save the posts data to a JSON file
-with open('posts.json', 'w') as f:
+with open(posts_filename, 'w') as f:
     json.dump(posts, f)
 
 # Load the posts to pick the post we want to make a tree
-with open('posts.json', 'r') as f:
+with open(posts_filename, 'r') as f:
     posts_dict = json.load(f)
 
 # Empty the comments file
-with open('comments.json', 'w') as f:
+with open(comments_filename, 'w') as f:
     json.dump([], f)
 def make_tree(submission):
     # Sort the comments into a tree
@@ -63,20 +66,20 @@ def make_tree(submission):
 
     # Store the trees into a JSON file
     # Check if the file exists and is not empty
-    if os.path.isfile('comments.json') and os.path.getsize('comments.json') > 0:
+    if os.path.isfile(comments_filename) and os.path.getsize(comments_filename) > 0:
         # Open the file for reading
-        with open('comments.json', 'r') as f:
+        with open(comments_filename, 'r') as f:
             data = json.load(f)
 
         # Append new data to existing data
         data.append(comments)
 
         # Write the updated data to the file
-        with open('comments.json', 'w') as f:
+        with open(comments_filename, 'w') as f:
             json.dump(data, f)
     else:
         # Write new data to the file
-        with open('comments.json', 'w') as f:
+        with open(comments_filename, 'w') as f:
             json.dump([comments], f)
 
 # We get 5 posts to make trees
