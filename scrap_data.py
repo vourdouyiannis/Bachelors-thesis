@@ -18,8 +18,10 @@ posts = []
 for post in subreddit:
     post_data = {
         'id': post.id,
-        'title': post.title,
         'author': post.author.name,
+        'parent_id': "",
+        'content': post.title,
+
     }
     posts.append(post_data)
 
@@ -37,7 +39,9 @@ with open(posts_filename, 'r') as f:
 # Empty the comments file
 with open(comments_filename, 'w') as f:
     json.dump([], f)
-def make_tree(submission):
+
+
+def make_tree(submission, post1):
     # Sort the comments into a tree
     tree = []
     comment_stack = submission.comments[:]
@@ -50,7 +54,7 @@ def make_tree(submission):
         comment_stack[0:0] = comment.replies
 
     # Process the tree's data
-    comments = []
+    comments = [post1]
     for comment in tree:
         if comment.author is None or comment.author == "AutoModerator":
             continue
@@ -87,4 +91,4 @@ for i in range(5):
     # Get submission of each post
     submission = reddit.submission(id=posts_dict[i]['id'])
     # Get the tree for each post
-    make_tree(submission)
+    make_tree(submission, posts_dict[i])
