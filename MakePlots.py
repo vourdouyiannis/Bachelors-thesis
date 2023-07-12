@@ -3,6 +3,8 @@
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
+from collections import Counter
 
 # Read data from JSON file
 with open('resources/comments.json', 'r') as f:
@@ -33,13 +35,36 @@ def create_edges(G, post):
                 G.add_edge(post[i]['author'], post[j]['author'])
 
 
+def get_sentiment(sentiment):
+    # Determine if the comment is positive or negative based on the polarity score
+    # No polarity
+    if sentiment == "":
+        return "0"
+    # Positive comment
+    if float(sentiment) > 0:
+        return "+"
+    # Negative comment
+    elif float(sentiment) < 0:
+        return "-"
+    # Neutral comment
+    else:
+        return "0"
+
+
 def create_graph(post):
     # Create an empty graph
     G = nx.Graph()
 
     # Add nodes to the graph
     for comment in post:
-        G.add_node(comment['author'])
+        author = comment['author']
+        polarity = comment['polarity']
+        G.add_node(comment['author'], label=get_sentiment(comment['polarity']))
+        if polarity == '':
+            polarity_dict[author] = 0.0
+        else:
+            polarity_dict[author] = polarity
+    #print(polarity_dict)
 
     # Add edges to the graph
     create_edges(G, post)
@@ -60,43 +85,59 @@ def create_graph2(post1, post2):
     common_nodes = nodes1 & nodes2
 
     # Merge the two graphs
-    merged_graph = nx.disjoint_union(graph1, graph2)
+    merged_graph = nx.compose(graph1, graph2)
 
     # Set nodes color
     node_color = []
-    for node in nodes1:
+    for node in merged_graph.nodes():
         if node in common_nodes:
             node_color.append('purple')
-        else:
+        elif node in nodes1:
             node_color.append('blue')
-    for node in nodes2:
-        if node in common_nodes:
-            node_color.append('purple')
         else:
             node_color.append('red')
 
     # Set nodes position
     pos = nx.spring_layout(merged_graph, k=0.01)
 
-    # for node in merged_graph.nodes():
-    #     if node in graph1.nodes():
-    #         pos[node] = (pos[node][0] - 0.5, pos[node][1])
-    #         print("here")
-
-    # # Connect the nodes that have commented in both posts
-    # for node1 in nodes1:
-    #     for node2 in nodes2:
-    #         if node1 == node2:
-    #             merged_graph.add_edge(node1, node2, color='green')
-    #             print(node1, node2)
-
-    # for node1 in merged_graph:
-    #     for node2 in merged_graph:
-    #         if node_color[list(merged_graph.nodes()).index(node1)] == 'purple' and node_color[list(merged_graph.nodes()).index(node2)] == 'purple':
-    #             merged_graph.add_edge(node1, node2, color='green')
-
     # Draw the merged graph with different colors
     nx.draw(merged_graph, pos=pos, node_size=10, node_color=node_color, edge_color='gray')
+
+    # Add labels in the graph
+    label_offset = 0.04  # A small offset to position the labels perfectly
+    label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
+    nx.draw_networkx_labels(merged_graph, pos=label_pos, labels=nx.get_node_attributes(merged_graph, 'label'))
+
+    return merged_graph
+
+
+def calculate_polarization_score(G, polarity_dict):
+    # Get the polarity values for each node
+    node_values = [float(polarity_dict[node]) if node in polarity_dict else 0.0 for node in G.nodes()]
+
+    # Compute the initial and final distributions
+    initial_distribution = np.array(node_values) / sum(node_values)
+    final_distribution = np.zeros(len(G.nodes()))
+
+    # Create a dictionary to store the indices of the nodes
+    node_indices = {node: idx for idx, node in enumerate(G.nodes())}
+
+    # Perform the random walk
+    alpha = 0.85  # Damping factor
+    for i in range(100):
+        for node in G.nodes():
+            neighbors = [n for n in G.neighbors(node) if G.has_edge(node, n)]
+            contribution = sum(initial_distribution[node_indices[neighbor]] for neighbor in neighbors) if neighbors else 0
+            final_distribution[node_indices[node]] += alpha * (contribution / len(neighbors)) if neighbors else 0
+
+        final_distribution += (1 - alpha) * (initial_distribution / len(G.nodes()))
+        initial_distribution = final_distribution.copy()
+        final_distribution = np.zeros(len(G.nodes()))
+
+    # Calculate the polarization score
+    polarization_score = np.sum(np.abs(initial_distribution - 1 / len(G.nodes())))
+
+    return polarization_score
 
 
 def save_to_file(ctr):
@@ -123,23 +164,64 @@ def save_to_file2(ctr, subr, contr):
     plt.clf()
 
 
+# counter = 1
+# for post in comments:
+#     polarity_dict = {}
+#     G = create_graph(post)
+#
+#     # Draw the graph
+#     pos = nx.spring_layout(G, k=0.05, scale=0.1, iterations=50)
+#     nx.draw(G, pos, node_size=2, node_color='blue', edge_color='gray')
+#
+#     # Add labels in the graph
+#     label_offset = 0.003  # A small offset to position the labels perfectly
+#     label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
+#     nx.draw_networkx_labels(G, pos=label_pos, labels=nx.get_node_attributes(G, 'label'))
+#
+#     save_to_file(counter)
+#     counter += 1
+
 counter = 1
-for post in comments:
-    G = create_graph(post)
+controversial = 0
+subreddit = 1
+# controversial: 0:no, 1:yes
+# subreddit: 0:different, 1:same
+
+for i in range(len(comments)):
+    polarity_dict = {}
+    G = create_graph(comments[i])
 
     # Draw the graph
     pos = nx.spring_layout(G, k=0.05, scale=0.1, iterations=50)
     nx.draw(G, pos, node_size=2, node_color='blue', edge_color='gray')
 
+    # Add labels in the graph
+    label_offset = 0.003  # A small offset to position the labels perfectly
+    label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
+    nx.draw_networkx_labels(G, pos=label_pos, labels=nx.get_node_attributes(G, 'label'))
+
+    polarization_score = calculate_polarization_score(G, polarity_dict)
+    print(f"Polarization score for post {counter}: {polarization_score}")
+
     save_to_file(counter)
+
     counter += 1
+    if counter == 10:
+        controversial = 1
+    # for number2 in polarity_dict:
+    #     print(polarity_dict[number2])
 
 counter = 1
-# 0:no, 1:yes
-controversial = 0
-# 0:different, 1:same
-subreddit = 1
-for i in range(len(comments)-1):
-    create_graph2(comments[i], comments[i+1])
-    save_to_file2(counter, subreddit, controversial)
+for i in range(len(comments)):
+    polarity_dict = {}
+    if i < len(comments) - 1:
+        G2 = create_graph2(comments[i], comments[i + 1])
+
+        polarization_score = calculate_polarization_score(G2, polarity_dict)
+        print("Polarization score for posts {} and {}: {}".format(counter, counter + 1, polarization_score))
+
+        save_to_file2(counter, subreddit, controversial)
+
     counter += 1
+    # for number2 in polarity_dict:
+    #     print(polarity_dict[number2])

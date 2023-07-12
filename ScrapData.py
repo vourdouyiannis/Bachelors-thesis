@@ -1,9 +1,9 @@
 # VOURDOUGIANNIS DIMITRIOS 4326 #
 
+import os
 import json
 import praw
 from praw.models import MoreComments
-import os
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 # Create an instance
@@ -11,16 +11,16 @@ reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkG
 
 # For subreddit "COVID19"/"atheism"/"Christianity"
 # Search the keyword "vaccine"/"deaths"/"jesus"
-# Get the top 5 posts/most relevant 5 posts
+# Get the top/most relevant 5 posts
 subreddit1 = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=5)
+#
+# subreddit2 = reddit.subreddit("COVID19").search("deaths", sort="top", limit=5)
+#
+# subreddit3 = reddit.subreddit("atheism").search("jesus", sort="Relevance", limit=5)
+#
+# subreddit4 = reddit.subreddit("Christianity").search("jesus", sort="Relevance", limit=5)
 
-subreddit2 = reddit.subreddit("COVID19").search("deaths", sort="top", limit=5)
-
-subreddit3 = reddit.subreddit("atheism").search("jesus", sort="Relevance", limit=5)
-
-subreddit4 = reddit.subreddit("Christianity").search("jesus", sort="Relevance", limit=5)
-
-subreddits = [subreddit1, subreddit2, subreddit3, subreddit4]
+subreddits = [subreddit1]# , subreddit2, subreddit3, subreddit4]
 posts = []
 
 
@@ -60,17 +60,17 @@ def analyze(comment):
     # Use sentiment analyzer to get polarity score
     score = sia.polarity_scores(comment)
 
+    return score['compound']
     # Determine if the comment is positive or negative based on the polarity score
     # Positive comment
-    if score['compound'] > 0:
-        return "+"
-    # Negative comment
-    elif score['compound'] < 0:
-        return "-"
-    # Neutral comment
-    else:
-        return "0"
-
+    # if score['compound'] > 0:
+    #     return "+"
+    # # Negative comment
+    # elif score['compound'] < 0:
+    #     return "-"
+    # # Neutral comment
+    # else:
+    #     return "0"
 
 
 def make_tree(submission, post1):
