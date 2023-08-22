@@ -7,12 +7,13 @@ import numpy as np
 import random
 from sklearn.cluster import KMeans
 
+
 # Read data from JSON file
 with open('resources/comments.json', 'r') as f:
     comments = json.load(f)
 
 # High polarization score example input data:
-#
+
 # comments = [
 #     [
 #         {
@@ -20,35 +21,35 @@ with open('resources/comments.json', 'r') as f:
 #             "author": "User1",
 #             "parent_id": "",
 #             "content": "I strongly believe in this.",
-#             "polarity": 0.8
+#             "sentiment": 0.8
 #         },
 #         {
 #             "id": "comment2",
 #             "author": "User2",
 #             "parent_id": "comment1",
 #             "content": "Absolutely! It's the best option.",
-#             "polarity": 0.7
+#             "sentiment": 0.7
 #         },
 #         {
 #             "id": "comment3",
 #             "author": "User3",
 #             "parent_id": "comment1",
 #             "content": "This is completely wrong. We should never do that.",
-#             "polarity": -0.6
+#             "sentiment": -0.6
 #         },
 #         {
 #             "id": "comment4",
 #             "author": "User4",
 #             "parent_id": "comment2",
 #             "content": "I strongly disagree. We need to explore other alternatives.",
-#             "polarity": -0.7
+#             "sentiment": -0.7
 #         },
 #         {
 #             "id": "comment5",
 #             "author": "User5",
 #             "parent_id": "comment3",
 #             "content": "You're all mistaken! There's a better way.",
-#             "polarity": -0.8
+#             "sentiment": -0.8
 #         }
 #     ]
 # ]
@@ -63,35 +64,35 @@ with open('resources/comments.json', 'r') as f:
 #             "author": "User1",
 #             "parent_id": "",
 #             "content": "I think this could work.",
-#             "polarity": 0.3
+#             "sentiment": 0.3
 #         },
 #         {
 #             "id": "comment2",
 #             "author": "User2",
 #             "parent_id": "comment1",
 #             "content": "It's worth considering.",
-#             "polarity": 0.2
+#             "sentiment": 0.2
 #         },
 #         {
 #             "id": "comment3",
 #             "author": "User3",
 #             "parent_id": "comment1",
 #             "content": "I'm not sure about this idea.",
-#             "polarity": -0.1
+#             "sentiment": -0.1
 #         },
 #         {
 #             "id": "comment4",
 #             "author": "User4",
 #             "parent_id": "comment2",
 #             "content": "I don't have a strong opinion on this matter.",
-#             "polarity": 0.0
+#             "sentiment": 0.0
 #         },
 #         {
 #             "id": "comment5",
 #             "author": "User5",
 #             "parent_id": "comment3",
 #             "content": "Can you provide more details?",
-#             "polarity": 0.1
+#             "sentiment": 0.1
 #         }
 #     ]
 # ]
@@ -122,8 +123,8 @@ def create_edges(G, post):
 
 
 def get_sentiment(sentiment):
-    # Determine if the comment is positive or negative based on the polarity score
-    # No polarity
+    # Determine if the comment is positive or negative based on the sentiment score
+    # No score
     if sentiment == "":
         return "0"
     # Positive comment
@@ -144,27 +145,15 @@ def create_graph(post):
     # Add nodes to the graph
     for comment in post:
         author = comment['author']
-        polarity = comment['polarity']
-        G.add_node(author, label=polarity)
-        polarity_dict[author] = float(polarity) if polarity != '' else 0.0
+        sentiment = comment['sentiment']
+        G.add_node(author, label=sentiment)
+        # polarity_dict[author] = float(sentiment) if sentiment != '' else 0.0
 
     # Add edges to the graph
     create_edges(G, post)
 
     # Remove the nodes we don't need or causing a problem
     remove_nodes(G, post)
-
-    # Draw the graph
-    pos = nx.spring_layout(G, k=0.05)
-    nx.draw(G, pos, node_size=2, node_color='blue', edge_color='gray')
-
-    # Add labels in the graph
-    label_offset = 0.04  # A small offset to position the labels perfectly
-    label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
-
-    # Use the get_sentiment function to get the symbol we want to print for each node ("0", "+", "-")
-    node_labels = {node: get_sentiment(G.nodes[node].get('label')) for node in G.nodes()}
-    nx.draw_networkx_labels(G, pos=label_pos, labels=node_labels)
 
     return G
 
@@ -208,59 +197,47 @@ def create_graph2(post1, post2):
     return merged_graph
 
 
-# def calculate_polarization_score(G, polarity_dict):
-#     node_values = [float(polarity_dict[node]) if node in polarity_dict else 0.0 for node in G.nodes()]
-#     sum_node_values = sum(node_values)
-#
-#     if sum_node_values != 0:
-#         initial_distribution = np.array(node_values) / sum_node_values
-#         alpha = 0.85
-#         final_distribution = nx.pagerank(G, alpha=alpha, personalization=None, max_iter=1000, tol=1e-06)
-#         initial_polarity_values = np.array([float(polarity_dict[node]) if node in polarity_dict else 0.0 for node in final_distribution.keys()])
-#         polarization_score = np.sum(np.abs(initial_distribution - initial_polarity_values))
-#         normalization_factor = len(G.nodes()) - 1
-#         polarization_score /= normalization_factor
-#
-#         # Normalize the polarization score to be within the range of 0 to 1
-#         polarization_score = min(max(polarization_score, 0), 1)
-#     else:
-#         polarization_score = 0.0  # Set polarization score to 0 if sum_node_values is 0
-#
-#     return polarization_score
-
-
 def calculate_polarization_score(G, polarity_dict, num_walks, walk_length):
-    # Step 1: Calculate the initial distribution of polarity values for nodes in the graph
-    node_values = [float(polarity_dict[node]) if node in polarity_dict else 0.0 for node in G.nodes()]
-    sum_node_values = sum(node_values)
+    """
+    Calculates the polarization score of a graph based on the sentiment values
+    of its nodes and the probabilities obtained from random walks.
 
-    # Step 2: Calculate the polarization score using random walk
-    if sum_node_values != 0:
-        # Calculate the initial distribution by dividing each node's polarity value by the sum of all polarity values
-        initial_distribution = np.array(node_values) / sum_node_values
+    Parameters:
+        G: The input graph.
+        polarity_dict: Dictionary with nodes as keys and sentiment values as values.
+        num_walks: Number of random walks to perform from each node.
+        walk_length: Length of each random walk.
 
-        # Perform random walks from each node to estimate the probability of reaching a node with a specific polarity
-        walk_probabilities = random_walk_probability(G, num_walks=num_walks, walk_length=walk_length)
+    Returns:
+        polarization_score: Computed polarization score.
+    """
 
-        # Calculate the initial polarity values for nodes in the same order as the walk probabilities keys
-        initial_polarity_values = np.array(
-            [float(polarity_dict[node]) if node in polarity_dict else 0.0 for node in walk_probabilities.keys()])
+    # Compute walk probabilities, which give the probability of ending up in a
+    # node with a certain sentiment value after a random walk.
+    walk_probabilities = random_walk_probability(G, num_walks, walk_length)
 
-        # Calculate the polarization score as the absolute difference between initial distribution and walk probabilities
-        polarization_score = np.sum(np.abs(initial_distribution - initial_polarity_values))
+    total_difference = 0.0
+    num_nodes = 0
 
-        # Calculate a normalization factor based on the number of nodes in the graph
-        normalization_factor = len(G.nodes()) - 1
+    # For each node, compute the expected sentiment value using the walk probabilities
+    for node, sentiments in walk_probabilities.items():
+        # Calculate the expected sentiment value based on the probabilities.
+        # It's a weighted average where probabilities serve as weights.
+        expected_value = sum([sentiments.get(str(s), 0) * s for s in [-1, 0, 1]])
 
-        # Normalize the polarization score to be within the range of 0 to 1
-        polarization_score /= normalization_factor
-        polarization_score = min(max(polarization_score, 0), 1)
-    else:
-        # If the sum of node polarity values is 0, set the polarization score to 0
-        polarization_score = 0.0
+        # Fetch the actual sentiment value of the node from polarity_dict
+        actual_value = polarity_dict.get(node, 0)
 
-    # Step 3: Return the calculated polarization score
-    return polarization_score
+        # Add up the absolute difference between expected and actual values
+        total_difference += abs(expected_value - actual_value)
+
+        # Increment the count of nodes processed
+        num_nodes += 1
+
+    # Average the total difference to get the final polarization score
+    polarization_score = total_difference / num_nodes if num_nodes else 0
+
+    return round(polarization_score, 3)
 
 
 def random_walk_probability(G, num_walks, walk_length):
@@ -280,9 +257,9 @@ def random_walk_probability(G, num_walks, walk_length):
         walk_counts = {polarity: 0 for polarity in set(G.nodes[node].get('label') for node in G.nodes()) if
                        polarity != ''}
 
-        for _ in range(num_walks):
+        for i in range(num_walks):
             current_node = node
-            for _ in range(walk_length):
+            for j in range(walk_length):
                 neighbors = list(G.neighbors(current_node))
                 if len(neighbors) == 0:
                     break
@@ -302,15 +279,15 @@ def SCG(G, k):
     polarity_values = []
     node_labels = {}
 
-    # Loop through each node in the graph and extract the 'label' attribute which is the sentiment analysis - "polarity"
+    # Loop through each node in the graph and extract the 'label' attribute which is the sentiment analysis - "sentiment"
     for node in G.nodes():
-        polarity = G.nodes[node].get('label')
+        sentiment = G.nodes[node].get('label')
 
         # If 'label' exists and is not an empty string, attempt to convert it to a floating-point number
-        if polarity is not None and polarity != "":
+        if sentiment is not None and sentiment != "":
             try:
-                polarity_values.append(float(polarity))
-                node_labels[node] = polarity
+                polarity_values.append(float(sentiment))
+                node_labels[node] = sentiment
             except ValueError:
                 # If the conversion fails, skip this node and continue to the next one
                 continue
@@ -341,6 +318,7 @@ def SCG(G, k):
     # Return the list of groups, each representing one cluster
     return list(groups.values())
 
+
 def save_to_file(ctr):
     # Save each graph to a file
     filename = "graphs/all_posts/Post{}_graph.png".format(ctr)
@@ -349,88 +327,96 @@ def save_to_file(ctr):
 
 
 # Save each graph to a file
-def save_to_file2(ctr, subr, contr):
+def save_to_file2(ctr, contr):
     filename = ""
     if contr == 0:
-        if subr == 0:
-            filename = "graphs/non_controversial/different_subreddit/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
-        if subr == 1:
-            filename = "graphs/non_controversial/same_subreddit/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
+        filename = "graphs/non_controversial/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
     if contr == 1:
-        if subr == 0:
-            filename = "graphs/controversial/different_subreddit/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
-        if subr == 1:
-            filename = "graphs/controversial/same_subreddit/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
+        filename = "graphs/controversial/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
     plt.savefig(filename)
     plt.clf()
 
 
-# counter = 1
-# for post in comments:
-#     polarity_dict = {}
-#     G = create_graph(post)
-#
-#     # Draw the graph
-#     pos = nx.spring_layout(G, k=0.05, scale=0.1, iterations=50)
-#     nx.draw(G, pos, node_size=2, node_color='blue', edge_color='gray')
-#
-#     # Add labels in the graph
-#     label_offset = 0.003  # A small offset to position the labels perfectly
-#     label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
-#     nx.draw_networkx_labels(G, pos=label_pos, labels=nx.get_node_attributes(G, 'label'))
-#
-#     save_to_file(counter)
-#     counter += 1
+def results_for_one_graph(counter, num_walks, walk_length, kmeans):
+    """
+    The reason that the graph is drawn here
+    is that we don't want to be drawn
+    when we draw the graphs with the 2 posts
+    """
+
+    for i in range(len(comments)):
+        polarity_dict = {}  # A dictionary that keeps the sentiment values
+        G = create_graph(comments[i])
+
+        # Get the polarity_dict:
+        for comment in comments[i]:
+            polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+
+        # Draw the graph
+        pos = nx.spring_layout(G, k=0.05)
+        nx.draw(G, pos, node_size=2, node_color='blue', edge_color='gray')
+
+        # Add labels in the graph
+        label_offset = 0.04  # A small offset to position the labels perfectly
+        label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
+
+        # Use the get_sentiment function to get the symbol we want to print for each node ("0", "+", "-")
+        node_labels = {node: get_sentiment(G.nodes[node].get('label')) for node in G.nodes()}
+        nx.draw_networkx_labels(G, pos=label_pos, labels=node_labels)
+
+        save_to_file(counter)
+
+        polarization_score = calculate_polarization_score(G, polarity_dict, num_walks, walk_length)
+        print(f"Polarization score for post {counter}: {polarization_score}")
+
+        # Detect groups based on agreement using SCG
+        groups = SCG(G, kmeans)
+
+        # Print the nodes in each group
+        for j, group in enumerate(groups):
+            print(f"Group {j + 1}: {group.nodes()}")
+
+        counter += 1
 
 
+def results_for_two_graphs(counter, controversial, num_walks, walk_length, kmeans):
+    for i in range(len(comments)):
+        polarity_dict = {}
+        if i < len(comments) - 1 and i != 9:
+            G2 = create_graph2(comments[i], comments[i + 1])
+
+            # Get the polarity_dict:
+            for comment in comments[i]:
+                polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+            for comment in comments[i + 1]:
+                polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+
+            save_to_file2(counter, controversial)
+
+            polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
+            print("Polarization score for posts {} and {}: {}".format(counter, counter + 1, polarization_score))
+
+            # Detect groups based on agreement using SCG
+            groups = SCG(G2, kmeans)
+
+            # Print the nodes in each group
+            for j, group in enumerate(groups):
+                print(f"Group {j + 1}: {group.nodes()}")
+
+        if i == 8:
+            controversial = 1
+
+        counter += 1
+
+
+# Required fields to run the processes
 counter = 1
 controversial = 0  # controversial: 0:no, 1:yes
-subreddit = 1  # subreddit: 0:different, 1:same
 
 num_walks = 100  # Number of random walks to perform from each node
 walk_length = 10  # Length of each random walk
 k = 3  # The number of the groups I want to detect
 
-for i in range(len(comments)):
-    polarity_dict = {}
-    G = create_graph(comments[i])
-
-    polarization_score = calculate_polarization_score(G, polarity_dict, num_walks, walk_length)
-    print(f"Polarization score for post {counter}: {polarization_score}")
-
-    # Detect groups based on agreement using SCG
-    groups = SCG(G, k)
-
-    # Print the nodes in each group
-    for i, group in enumerate(groups):
-        print(f"Group {i + 1}: {group.nodes()}")
-
-    save_to_file(counter)
-
-    counter += 1
-    if counter == 10:
-        controversial = 1
-    # for number2 in polarity_dict:
-    #     print(polarity_dict[number2])
-
-counter = 1
-for i in range(len(comments)):
-    polarity_dict = {}
-    if i < len(comments) - 1:
-        G2 = create_graph2(comments[i], comments[i + 1])
-
-        polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
-        print("Polarization score for posts {} and {}: {}".format(counter, counter + 1, polarization_score))
-
-        # Detect groups based on agreement using SCG
-        groups = SCG(G2, k)
-
-        # Print the nodes in each group
-        for i, group in enumerate(groups):
-            print(f"Group {i + 1}: {group.nodes()}")
-
-        save_to_file2(counter, subreddit, controversial)
-
-    counter += 1
-    # for number2 in polarity_dict:
-    #     print(polarity_dict[number2])
+# Run the processes
+results_for_one_graph(counter, num_walks, walk_length, k)
+results_for_two_graphs(counter, controversial, num_walks, walk_length, k)
