@@ -382,7 +382,7 @@ def results_for_one_graph(counter, num_walks, walk_length, kmeans):
 def results_for_two_graphs(counter, controversial, num_walks, walk_length, kmeans):
     for i in range(len(comments)):
         polarity_dict = {}
-        if i < len(comments) - 1 and i != 9:
+        if i < len(comments) - 1 and i != 9 and controversial == 0:
             G2 = create_graph2(comments[i], comments[i + 1])
 
             # Get the polarity_dict:
@@ -403,6 +403,27 @@ def results_for_two_graphs(counter, controversial, num_walks, walk_length, kmean
             for j, group in enumerate(groups):
                 print(f"Group {j + 1}: {group.nodes()}")
 
+        if i < len(comments) - 5 and controversial == 1 and i != 9:
+            G2 = create_graph2(comments[i], comments[i + 5])
+
+            # Get the polarity_dict:
+            for comment in comments[i]:
+                polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+            for comment in comments[i + 5]:
+                polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+
+            save_to_file2(counter, controversial)
+
+            polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
+            print("Polarization score for posts {} and {}: {}".format(counter, counter + 5, polarization_score))
+
+            # Detect groups based on agreement using SCG
+            groups = SCG(G2, kmeans)
+
+            # Print the nodes in each group
+            for j, group in enumerate(groups):
+                print(f"Group {j + 1}: {group.nodes()}")
+
         if i == 8:
             controversial = 1
 
@@ -410,7 +431,7 @@ def results_for_two_graphs(counter, controversial, num_walks, walk_length, kmean
 
 
 # Required fields to run the processes
-counter = 1
+counter = 1  # Counts the post we are currently processing
 controversial = 0  # controversial: 0:no, 1:yes
 
 num_walks = 100  # Number of random walks to perform from each node
