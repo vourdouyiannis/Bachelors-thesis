@@ -5,6 +5,8 @@ import json
 import praw
 from praw.models import MoreComments
 from nltk.sentiment import SentimentIntensityAnalyzer
+import prawcore
+import time
 
 # Create an instance
 reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkGIPcLH1rzXlyWmrAVHGVc8g", user_agent="vourdouyiannis")
@@ -12,37 +14,72 @@ reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkG
 # For subreddit "COVID19"/"atheism"/"Christianity"
 # Search the keyword "vaccine"/"deaths"/"jesus"
 # Get the top/most relevant 5 posts
-subreddit1 = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=5)
+subreddit1 = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=50)  # 43
 
-subreddit2 = reddit.subreddit("COVID19").search("deaths", sort="top", limit=5)
+subreddit2 = reddit.subreddit("COVID19").search("deaths", sort="top", limit=50)  # 32
 
-subreddit3 = reddit.subreddit("atheism").search("jesus", sort="Relevance", limit=5)
+subreddit3 = reddit.subreddit("atheism").search("jesus", sort="Relevance", limit=50)  # 50
 
-subreddit4 = reddit.subreddit("Christianity").search("jesus", sort="Relevance", limit=5)
+subreddit4 = reddit.subreddit("Christianity").search("jesus", sort="Relevance", limit=50)  # 50
 
 subreddits = [subreddit1, subreddit2, subreddit3, subreddit4]
 posts = []
 
 
-# Process the posts data
-def create_posts_dataset(subreddit):
+def count_all_comments(comments):
+    total_count = 0
+    for comment in comments:
+        total_count += 1
+        total_count += count_all_comments(comment.replies)
+    return total_count
+
+def create_posts_dataset(subreddit, comment_type):
+    rejected = 0
+    accepted = 0
     for post in subreddit:
-        post_data = {
-            'id': post.id,
-            'author': post.author.name,
-            'parent_id': "",
-            'content': post.title,
-            'sentiment': "",
-        }
-        posts.append(post_data)
+        retry_count = 3
+        while retry_count > 0:
+            try:
+                post = reddit.submission(id=post.id)
+                post.comments.replace_more(limit=20)
+                num_comments = count_all_comments(post.comments)
+                if num_comments < 50:
+                    print(num_comments, ": rejected")
+                    rejected += 1
+                    break
+                else:
+                    print(num_comments, ": accepted")
+                    accepted += 1
+                    post_data = {
+                        'id': post.id,
+                        'author': post.author.name,
+                        'parent_id': "",
+                        'content': post.title,
+                        'sentiment': "",
+                        'type': comment_type  # Save the type of comment
+                    }
+                    posts.append(post_data)
+                    break
+            except prawcore.exceptions.TooManyRequests:
+                print("Hit rate limit, waiting for 10 seconds before retrying...")
+                time.sleep(10)
+                retry_count -= 1
+            except Exception as e:
+                print(f"Unexpected error: {e}. Retrying...")
+                retry_count -= 1
 
+    print("Number of accepted: ", accepted)
+    print("Number of rejected: ", rejected)
 
-# Creates the post dataset
-for sub in subreddits:
-    create_posts_dataset(sub)
+# Provide the appropriate type for each subreddit
+create_posts_dataset(subreddit1, "non_controversial")
+create_posts_dataset(subreddit2, "non_controversial")
+create_posts_dataset(subreddit3, "controversial")
+create_posts_dataset(subreddit4, "controversial")
 
 posts_filename = 'resources/posts.json'
-comments_filename = 'resources/comments.json'
+comments_filename = 'resources/comments_non_controversial.json'
+comments_filename2 = 'resources/comments_controversial.json'
 
 # Save the posts data to a JSON file
 with open(posts_filename, 'w') as f:
@@ -52,31 +89,33 @@ with open(posts_filename, 'w') as f:
 with open(comments_filename, 'w') as f:
     json.dump([], f)
 
+# Empty the comments file
+with open(comments_filename2, 'w') as f:
+    json.dump([], f)
+
+all_comments_non_controversial = []
+all_comments_controversial = []
+
 
 def analyze(comment):
-    # Initialize sentiment analyzer
     sia = SentimentIntensityAnalyzer()
-
-    # Use sentiment analyzer to get a score for the comment
     score = sia.polarity_scores(comment)
-
     return score['compound']
 
 
-
 def make_tree(submission, post1):
-    # Sort the comments into a tree
     tree = []
     comment_stack = submission.comments[:]
-    submission.comments.replace_more(limit=None)
-    while comment_stack:
+    submission.comments.replace_more(limit=20)
+    count = 0
+    while comment_stack and count < 200:
         comment = comment_stack.pop(0)
         if isinstance(comment, MoreComments):
             continue
         tree.append(comment)
         comment_stack[0:0] = comment.replies
+        count += 1
 
-    # Process the tree's data
     comments = [post1]
     for comment in tree:
         if comment.author is None or comment.author == "AutoModerator":
@@ -93,32 +132,36 @@ def make_tree(submission, post1):
             }
             comments.append(comment_data)
 
-    # Store the trees into a JSON file
-    # Check if the file exists and is not empty
-    if os.path.isfile(comments_filename) and os.path.getsize(comments_filename) > 0:
-        # Open the file for reading
-        with open(comments_filename, 'r') as f:
-            data = json.load(f)
-
-        # Append new data to existing data
-        data.append(comments)
-
-        # Write the updated data to the file
-        with open(comments_filename, 'w') as f:
-            json.dump(data, f)
+    # Append the comments to the appropriate in-memory list after processing all comments
+    if post1["type"] == "non_controversial":
+        all_comments_non_controversial.append(comments)
     else:
-        # Write new data to the file
-        with open(comments_filename, 'w') as f:
-            json.dump([comments], f)
+        all_comments_controversial.append(comments)
 
+    # if os.path.isfile(comments_file_name) and os.path.getsize(comments_file_name) > 0:
+    #     with open(comments_file_name, 'r') as f:
+    #         data = json.load(f)
+    #
+    #     data.append(comments)
+    #
+    #     with open(comments_file_name, 'w') as f:
+    #         json.dump(data, f)
+    # else:
+    #     with open(comments_file_name, 'w') as f:
+    #         json.dump([comments], f)
 
-# Load the posts to pick the post we want to make a tree
-with open(posts_filename, 'r') as f:
+with open('resources/posts.json', 'r') as f:
     posts_dict = json.load(f)
 
-# We get the posts to make trees
 for i in range(len(posts)):
-    # Get submission of each post
     submission = reddit.submission(id=posts_dict[i]['id'])
-    # Get the tree for each post
-    make_tree(submission, posts_dict[i])
+    try:
+        make_tree(submission, posts_dict[i])
+    except prawcore.exceptions.TooManyRequests:
+        print("Hit rate limit, waiting for 10 seconds before retrying...")
+        time.sleep(10)
+
+with open('resources/comments_non_controversial.json', 'w') as f:
+    json.dump(all_comments_non_controversial, f)
+with open('resources/comments_controversial.json', 'w') as f:
+    json.dump(all_comments_controversial, f)

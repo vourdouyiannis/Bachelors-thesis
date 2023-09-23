@@ -5,12 +5,16 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-from sklearn.cluster import KMeans
+from scipy.sparse.linalg import eigsh
+from sklearn.cluster import SpectralClustering
+from sklearn.metrics.pairwise import rbf_kernel
 
+# Read data from JSON files
+with open('resources/comments_non_controversial.json', 'r') as f:
+    comments_non_controversial = json.load(f)
 
-# Read data from JSON file
-with open('resources/comments.json', 'r') as f:
-    comments = json.load(f)
+with open('resources/comments_controversial.json', 'r') as f:
+    comments_controversial = json.load(f)
 
 # High polarization score example input data:
 
@@ -56,7 +60,7 @@ with open('resources/comments.json', 'r') as f:
 
 
 # Low polarization score example input data:
-
+#
 # comments = [
 #     [
 #         {
@@ -114,7 +118,6 @@ def remove_nodes(G, post):
     isolated_nodes = [n for n in G.nodes() if not nx.has_path(G, node_to_keep, n)]
     G.remove_nodes_from(isolated_nodes)
 
-
 def create_edges(G, post):
     for i in range(len(post)):
         for j in range(len(post)):
@@ -142,12 +145,31 @@ def create_graph(post):
     # Create an empty graph
     G = nx.Graph()
 
+    # These dictionaries will help to calculate the mean sentiment score for nodes
+    # that appear multiple times
+    accumulated_sentiments = {}  # To accumulate sentiments of nodes
+    node_counts = {}  # To count occurrences of nodes
+
     # Add nodes to the graph
     for comment in post:
         author = comment['author']
-        sentiment = comment['sentiment']
-        G.add_node(author, label=sentiment)
-        # polarity_dict[author] = float(sentiment) if sentiment != '' else 0.0
+        sentiment = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+
+        if author not in G:
+            G.add_node(author, label=sentiment)
+            accumulated_sentiments[author] = sentiment
+            node_counts[author] = 1
+        else:
+            # Update the accumulated sentiment and count for the node
+            accumulated_sentiments[author] += sentiment
+            node_counts[author] += 1
+
+            # Compute the mean sentiment and update the node's sentiment in the graph
+            mean_sentiment = accumulated_sentiments[author] / node_counts[author]
+            G.nodes[author]['label'] = mean_sentiment
+
+    # An enas xrhsths exei sxoliasei panw apo mia fora se ena grafhma h kai se duo mazi tote upologizetai o mesos oros twn sxoliwn
+    # kai mpainei sto grafhma o mesos oros aftos /TODO DELETE
 
     # Add edges to the graph
     create_edges(G, post)
@@ -167,6 +189,8 @@ def create_graph2(post1, post2):
     nodes2 = graph2.nodes()
     common_nodes = nodes1 & nodes2
 
+    if not common_nodes:
+        return 0
     # Merge the two graphs
     merged_graph = nx.compose(graph1, graph2)
 
@@ -274,49 +298,125 @@ def random_walk_probability(G, num_walks, walk_length):
     return walk_probabilities
 
 
-def SCG(G, k):
-    # Get the polarity values of nodes and their labels
-    polarity_values = []
-    node_labels = {}
+def SCG(G, K):
+    # Remove isolated nodes
+    G.remove_nodes_from(list(nx.isolates(G)))
 
-    # Loop through each node in the graph and extract the 'label' attribute which is the sentiment analysis - "sentiment"
+    # Use adjacency matrix
+    adj_matrix = nx.adjacency_matrix(G).todense()
+
+    # Convert the adjacency matrix to a similarity matrix using Gaussian kernel
+    similarity_matrix = rbf_kernel(adj_matrix)
+
+    # Check for NaN values
+    if np.any(np.isnan(similarity_matrix)):
+        print("Similarity matrix contains NaN values!")
+
+    # Check if the number of nodes is less than the number of clusters you want
+    if len(G.nodes()) < K:
+        print(f"Graph has {len(G.nodes())} nodes, which is less than {K} clusters. Ignoring this graph.")
+        return []
+
+    # Apply Spectral Clustering
+    clustering = SpectralClustering(n_clusters=K, affinity='precomputed', random_state=42).fit(similarity_matrix)
+
+    return clustering.labels_
+
+
+def plot_graph_with_clusters(G, clusters):
+    nodes_list = list(G.nodes())
+
+    # Ensure clusters has an entry for each node
+    if len(clusters) != len(nodes_list):
+        print("Mismatch between nodes and clusters. Skipping plot.")
+        return
+
+    color_map = [clusters[i] for i, node in enumerate(nodes_list)]
+    pos = nx.spring_layout(G, k=0.05)
+    nx.draw(G, pos, node_size=10, node_color=color_map, edge_color='gray')
+    return G
+
+
+def compute_polarization_score_from_edges(G):
+    total_difference = 0.0
     for node in G.nodes():
-        sentiment = G.nodes[node].get('label')
+        actual_sentiment = G.nodes[node]['label']
+        expected_sentiment = compute_expected_sentiment(node, G)
+        total_difference += abs(actual_sentiment - expected_sentiment)
 
-        # If 'label' exists and is not an empty string, attempt to convert it to a floating-point number
-        if sentiment is not None and sentiment != "":
-            try:
-                polarity_values.append(float(sentiment))
-                node_labels[node] = sentiment
-            except ValueError:
-                # If the conversion fails, skip this node and continue to the next one
-                continue
+    # Normalize the polarization score to [0,1]
+    polarization_score = total_difference / len(G.nodes())
+    return min(round(polarization_score, 3), 1)  # Ensure the score doesn't exceed 1
 
-    # Apply k-means clustering
-    if len(polarity_values) < k:
-        return []  # If there are not enough distinct polarity values to create 'k' clusters, return an empty list
 
-    # Use k-means clustering to group polarity values into 'k' clusters
-    kmeans = KMeans(n_clusters=k, random_state=0, n_init=10).fit(np.array(polarity_values).reshape(-1, 1))
-    cluster_labels = kmeans.labels_
+def compute_expected_sentiment(node, G):
+    neighbors = list(G.neighbors(node))
+    if not neighbors:  # If node has no neighbors
+        return G.nodes[node]['label']
 
-    # Create a group for each cluster
-    groups = {}
+    weighted_sum = 0.0
+    total_weight = 0.0
+    for neighbor in neighbors:
+        abs_diff = abs(G.nodes[node]['label'] - G.nodes[neighbor]['label'])
+        if abs_diff > 0.8:
+            edge_weight = 1
+        elif 0.5 < abs_diff <= 0.8:
+            edge_weight = 0.5
+        else:
+            edge_weight = 0
 
-    # Iterate through the nodes and their labels and group nodes with the same cluster label into subgraphs
-    for i, (node, label) in enumerate(node_labels.items()):
-        group_label = cluster_labels[i]  # Get the cluster label for the current node
-        group_name = f"group{group_label}"
+        G[node][neighbor]['weight'] = edge_weight
 
-        if group_name not in groups:
-            # If the group doesn't exist, create a new subgraph for this cluster
-            groups[group_name] = nx.Graph()
+        weighted_sum += edge_weight * G.nodes[neighbor]['label']
+        total_weight += abs(edge_weight)
 
-        # Add the node to the appropriate subgraph with its label
-        groups[group_name].add_node(node, label=label)
+    # Normalize the expected sentiment, so it's bounded between -1 and 1
+    return weighted_sum / total_weight if total_weight != 0 else 0
 
-    # Return the list of groups, each representing one cluster
-    return list(groups.values())
+
+# def SCG(G, k):
+#     # Get the polarity values of nodes and their labels
+#     polarity_values = []
+#     node_labels = {}
+#
+#     # Loop through each node in the graph and extract the 'label' attribute which is the sentiment analysis - "sentiment"
+#     for node in G.nodes():
+#         sentiment = G.nodes[node].get('label')
+#
+#         # If 'label' exists and is not an empty string, attempt to convert it to a floating-point number
+#         if sentiment is not None and sentiment != "":
+#             try:
+#                 polarity_values.append(float(sentiment))
+#                 node_labels[node] = sentiment
+#             except ValueError:
+#                 # If the conversion fails, skip this node and continue to the next one
+#                 continue
+#
+#     # Apply k-means clustering
+#     if len(polarity_values) < k:
+#         return []  # If there are not enough distinct polarity values to create 'k' clusters, return an empty list
+#
+#     # Use k-means clustering to group polarity values into 'k' clusters
+#     kmeans = KMeans(n_clusters=k, random_state=0, n_init=10).fit(np.array(polarity_values).reshape(-1, 1))
+#     cluster_labels = kmeans.labels_
+#
+#     # Create a group for each cluster
+#     groups = {}
+#
+#     # Iterate through the nodes and their labels and group nodes with the same cluster label into subgraphs
+#     for i, (node, label) in enumerate(node_labels.items()):
+#         group_label = cluster_labels[i]  # Get the cluster label for the current node
+#         group_name = f"group{group_label}"
+#
+#         if group_name not in groups:
+#             # If the group doesn't exist, create a new subgraph for this cluster
+#             groups[group_name] = nx.Graph()
+#
+#         # Add the node to the appropriate subgraph with its label
+#         groups[group_name].add_node(node, label=label)
+#
+#     # Return the list of groups, each representing one cluster
+#     return list(groups.values())
 
 
 def save_to_file(ctr):
@@ -326,8 +426,8 @@ def save_to_file(ctr):
     plt.clf()
 
 
-# Save each graph to a file
 def save_to_file2(ctr, contr):
+    # Save each graph to a file
     filename = ""
     if contr == 0:
         filename = "graphs/non_controversial/Posts{}_and_{}_graph.png".format(ctr, ctr + 1)
@@ -337,19 +437,25 @@ def save_to_file2(ctr, contr):
     plt.clf()
 
 
-def results_for_one_graph(counter, num_walks, walk_length, kmeans):
+def save_to_group_file(ctr):
+    # Save each graph to a file
+    filename = "graphs/all_posts_grouped/Post{}_graph.png".format(ctr)
+    plt.savefig(filename)
+    plt.clf()
+
+
+def results_for_one_graph(num_walks, walk_length, k):
     """
     The reason that the graph is drawn here
     is that we don't want to be drawn
     when we draw the graphs with the 2 posts
     """
 
-    for i in range(len(comments)):
+    for i in range(len(comments_non_controversial)):
         polarity_dict = {}  # A dictionary that keeps the sentiment values
-        G = create_graph(comments[i])
-
+        G = create_graph(comments_non_controversial[i])
         # Get the polarity_dict:
-        for comment in comments[i]:
+        for comment in comments_non_controversial[i]:
             polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
 
         # Draw the graph
@@ -364,80 +470,138 @@ def results_for_one_graph(counter, num_walks, walk_length, kmeans):
         node_labels = {node: get_sentiment(G.nodes[node].get('label')) for node in G.nodes()}
         nx.draw_networkx_labels(G, pos=label_pos, labels=node_labels)
 
-        save_to_file(counter)
+        save_to_file(i)
 
         polarization_score = calculate_polarization_score(G, polarity_dict, num_walks, walk_length)
-        print(f"Polarization score for post {counter}: {polarization_score}")
+        print(f"Polarization score - Random walk - for post {i+1}: {polarization_score}")
 
         # Detect groups based on agreement using SCG
-        groups = SCG(G, kmeans)
+        # groups = SCG(G, kmeans)
 
+        polarization_score2 = compute_polarization_score_from_edges(G)
+        print(f"Polarization score - from edges - for post {i+1}: {polarization_score2}")
+        print("---------------------------------------------")
+
+        # Detect groups and draw them
+        clusters = SCG(G, k)
+        G = plot_graph_with_clusters(G, clusters)
+
+        save_to_group_file(i)
         # Print the nodes in each group
-        for j, group in enumerate(groups):
-            print(f"Group {j + 1}: {group.nodes()}")
-
-        counter += 1
+        # for j, group in enumerate(groups):
+        #     print(f"Group {j + 1}: {group.nodes()}")
 
 
-def results_for_two_graphs(counter, controversial, num_walks, walk_length, kmeans):
-    for i in range(len(comments)):
+    for i in range(len(comments_controversial)):
+        polarity_dict = {}  # A dictionary that keeps the sentiment values
+        G = create_graph(comments_controversial[i])
+        # Get the polarity_dict:
+        for comment in comments_controversial[i]:
+            polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
+
+        # Draw the graph
+        pos = nx.spring_layout(G, k=0.05)
+        nx.draw(G, pos, node_size=2, node_color='blue', edge_color='gray')
+
+        # Add labels in the graph
+        label_offset = 0.04  # A small offset to position the labels perfectly
+        label_pos = {k: (v[0], v[1] + label_offset) for k, v in pos.items()}
+
+        # Use the get_sentiment function to get the symbol we want to print for each node ("0", "+", "-")
+        node_labels = {node: get_sentiment(G.nodes[node].get('label')) for node in G.nodes()}
+        nx.draw_networkx_labels(G, pos=label_pos, labels=node_labels)
+
+        save_to_file(len(comments_non_controversial)+i)
+
+        polarization_score = calculate_polarization_score(G, polarity_dict, num_walks, walk_length)
+        print(f"Polarization score - Random walk - for post {len(comments_non_controversial) + i + 1}: {polarization_score}")
+
+        # Detect groups based on agreement using SCG
+        # groups = SCG(G, kmeans)
+
+        # clusters = SCG(G, k)
+        # plot_graph_with_clusters(G, clusters)
+
+        polarization_score2 = compute_polarization_score_from_edges(G)
+        print(f"Polarization score - from edges - for post {len(comments_non_controversial) + i + 1}: {polarization_score2}")
+        print("---------------------------------------------")
+        # Print the nodes in each group
+        # for j, group in enumerate(groups):
+        #     print(f"Group {j + 1}: {group.nodes()}")
+
+
+def results_for_two_graphs(num_walks, walk_length, k):
+    counter = 0
+    for i in range(len(comments_non_controversial) - 1):
         polarity_dict = {}
-        if i < len(comments) - 1 and i != 9 and controversial == 0:
-            G2 = create_graph2(comments[i], comments[i + 1])
+        G2 = create_graph2(comments_non_controversial[i], comments_non_controversial[i + 1])
 
+        if G2 == 0 or G2 is None:
+            counter += 1
+            continue
+        else:
             # Get the polarity_dict:
-            for comment in comments[i]:
+            for comment in comments_non_controversial[i]:
                 polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
-            for comment in comments[i + 1]:
+            for comment in comments_non_controversial[i + 1]:
                 polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
 
-            save_to_file2(counter, controversial)
+            save_to_file2(i+1, 0)
 
             polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
-            print("Polarization score for posts {} and {}: {}".format(counter, counter + 1, polarization_score))
+            print("Non-Controversial: Polarization score - Random walk - for posts {} and {}: {}".format(i+1, i + 2, polarization_score))
 
             # Detect groups based on agreement using SCG
-            groups = SCG(G2, kmeans)
+            # groups = SCG(G2, kmeans)
 
+            polarization_score2 = compute_polarization_score_from_edges(G2)
+            print("Non-Controversial: Polarization score - From edges - for posts {} and {}: {}".format(i+1, i + 2, polarization_score2))
+
+            print("---------------------------------------------")
             # Print the nodes in each group
-            for j, group in enumerate(groups):
-                print(f"Group {j + 1}: {group.nodes()}")
+            # for j, group in enumerate(groups):
+            #     print(f"Group {j + 1}: {group.nodes()}")
 
-        if i < len(comments) - 5 and controversial == 1 and i != 9:
-            G2 = create_graph2(comments[i], comments[i + 5])
+    print("#############################################")
+    for i in range(len(comments_controversial) - 1):
+        counter = 0
+        polarity_dict = {}
+        G2 = create_graph2(comments_controversial[i], comments_controversial[i + 1])
 
+        if G2 == 0 or G2 is None:
+            counter += 1
+            continue
+        else:
             # Get the polarity_dict:
-            for comment in comments[i]:
+            for comment in comments_controversial[i]:
                 polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
-            for comment in comments[i + 5]:
+            for comment in comments_controversial[i + 1]:
                 polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
 
-            save_to_file2(counter, controversial)
+            save_to_file2(i+1, 1)
 
             polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
-            print("Polarization score for posts {} and {}: {}".format(counter, counter + 5, polarization_score))
+            print("Controversial: Polarization score - Random walk - for posts {} and {}: {}".format(i+1, i + 2, polarization_score))
 
             # Detect groups based on agreement using SCG
-            groups = SCG(G2, kmeans)
+            # groups = SCG(G2, kmeans)
 
+            polarization_score2 = compute_polarization_score_from_edges(G2)
+            print("Controversial: Polarization score - From edges - for posts {} and {}: {}".format(i + 1, i + 2, polarization_score2))
+            print("---------------------------------------------")
             # Print the nodes in each group
-            for j, group in enumerate(groups):
-                print(f"Group {j + 1}: {group.nodes()}")
+            # for j, group in enumerate(groups):
+            #     print(f"Group {j + 1}: {group.nodes()}")
 
-        if i == 8:
-            controversial = 1
-
-        counter += 1
-
-
-# Required fields to run the processes
-counter = 1  # Counts the post we are currently processing
-controversial = 0  # controversial: 0:no, 1:yes
 
 num_walks = 100  # Number of random walks to perform from each node
 walk_length = 10  # Length of each random walk
 k = 3  # The number of the groups I want to detect
 
 # Run the processes
-results_for_one_graph(counter, num_walks, walk_length, k)
-results_for_two_graphs(counter, controversial, num_walks, walk_length, k)
+results_for_one_graph(num_walks, walk_length, k)
+print("#############################################")
+print("#############################################")
+results_for_two_graphs(num_walks, walk_length, k)
+
+
