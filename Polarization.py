@@ -5,7 +5,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-from scipy.sparse.linalg import eigsh
 from sklearn.cluster import SpectralClustering
 from sklearn.metrics.pairwise import rbf_kernel
 
@@ -269,12 +268,12 @@ def random_walk_probability(G, num_walks, walk_length):
     Perform random walks on the graph G and calculate the probability of reaching each node with a specific polarity.
 
     Parameters:
-        G (nx.Graph): The input graph.
-        num_walks (int): Number of random walks to perform from each node (default: 100).
-        walk_length (int): Length of each random walk (default: 10).
+        G: The input graph.
+        num_walks: Number of random walks to perform from each node (default: 100).
+        walk_length: Length of each random walk (default: 10).
 
     Returns:
-        dict: A dictionary with nodes as keys and their corresponding probability of reaching with a specific polarity as values.
+        dict: A dictionary with nodes as keys and their corresponding probability of reaching a node as values.
     """
     walk_probabilities = {}
     for node in G.nodes():
@@ -298,45 +297,6 @@ def random_walk_probability(G, num_walks, walk_length):
     return walk_probabilities
 
 
-def SCG(G, K):
-    # Remove isolated nodes
-    G.remove_nodes_from(list(nx.isolates(G)))
-
-    # Use adjacency matrix
-    adj_matrix = nx.adjacency_matrix(G).todense()
-
-    # Convert the adjacency matrix to a similarity matrix using Gaussian kernel
-    similarity_matrix = rbf_kernel(adj_matrix)
-
-    # Check for NaN values
-    if np.any(np.isnan(similarity_matrix)):
-        print("Similarity matrix contains NaN values!")
-
-    # Check if the number of nodes is less than the number of clusters you want
-    if len(G.nodes()) < K:
-        print(f"Graph has {len(G.nodes())} nodes, which is less than {K} clusters. Ignoring this graph.")
-        return []
-
-    # Apply Spectral Clustering
-    clustering = SpectralClustering(n_clusters=K, affinity='precomputed', random_state=42).fit(similarity_matrix)
-
-    return clustering.labels_
-
-
-def plot_graph_with_clusters(G, clusters):
-    nodes_list = list(G.nodes())
-
-    # Ensure clusters has an entry for each node
-    if len(clusters) != len(nodes_list):
-        print("Mismatch between nodes and clusters. Skipping plot.")
-        return
-
-    color_map = [clusters[i] for i, node in enumerate(nodes_list)]
-    pos = nx.spring_layout(G, k=0.05)
-    nx.draw(G, pos, node_size=10, node_color=color_map, edge_color='gray')
-    return G
-
-
 def compute_polarization_score_from_edges(G):
     total_difference = 0.0
     for node in G.nodes():
@@ -358,10 +318,8 @@ def compute_expected_sentiment(node, G):
     total_weight = 0.0
     for neighbor in neighbors:
         abs_diff = abs(G.nodes[node]['label'] - G.nodes[neighbor]['label'])
-        if abs_diff > 0.8:
+        if abs_diff > 1:
             edge_weight = 1
-        elif 0.5 < abs_diff <= 0.8:
-            edge_weight = 0.5
         else:
             edge_weight = 0
 
@@ -374,49 +332,47 @@ def compute_expected_sentiment(node, G):
     return weighted_sum / total_weight if total_weight != 0 else 0
 
 
-# def SCG(G, k):
-#     # Get the polarity values of nodes and their labels
-#     polarity_values = []
-#     node_labels = {}
-#
-#     # Loop through each node in the graph and extract the 'label' attribute which is the sentiment analysis - "sentiment"
-#     for node in G.nodes():
-#         sentiment = G.nodes[node].get('label')
-#
-#         # If 'label' exists and is not an empty string, attempt to convert it to a floating-point number
-#         if sentiment is not None and sentiment != "":
-#             try:
-#                 polarity_values.append(float(sentiment))
-#                 node_labels[node] = sentiment
-#             except ValueError:
-#                 # If the conversion fails, skip this node and continue to the next one
-#                 continue
-#
-#     # Apply k-means clustering
-#     if len(polarity_values) < k:
-#         return []  # If there are not enough distinct polarity values to create 'k' clusters, return an empty list
-#
-#     # Use k-means clustering to group polarity values into 'k' clusters
-#     kmeans = KMeans(n_clusters=k, random_state=0, n_init=10).fit(np.array(polarity_values).reshape(-1, 1))
-#     cluster_labels = kmeans.labels_
-#
-#     # Create a group for each cluster
-#     groups = {}
-#
-#     # Iterate through the nodes and their labels and group nodes with the same cluster label into subgraphs
-#     for i, (node, label) in enumerate(node_labels.items()):
-#         group_label = cluster_labels[i]  # Get the cluster label for the current node
-#         group_name = f"group{group_label}"
-#
-#         if group_name not in groups:
-#             # If the group doesn't exist, create a new subgraph for this cluster
-#             groups[group_name] = nx.Graph()
-#
-#         # Add the node to the appropriate subgraph with its label
-#         groups[group_name].add_node(node, label=label)
-#
-#     # Return the list of groups, each representing one cluster
-#     return list(groups.values())
+def SCG(G, K):
+    # Remove isolated nodes
+    G.remove_nodes_from(list(nx.isolates(G)))
+
+    # Use adjacency matrix
+    adj_matrix = nx.adjacency_matrix(G).todense()
+
+    # Convert the adjacency matrix to a similarity matrix using Gaussian kernel
+    similarity_matrix = rbf_kernel(adj_matrix)
+
+    # Check for NaN values
+    if np.any(np.isnan(similarity_matrix)):
+        print("Similarity matrix contains NaN values!")
+
+    # Check if the number of nodes is less than the number of clusters you want
+    if len(G.nodes()) <= K:
+        print(f"Graph has {len(G.nodes())} nodes, which is less than {K} clusters. Ignoring this graph.")
+        return []
+
+    try:
+        # Apply Spectral Clustering
+        clustering = SpectralClustering(n_clusters=K, affinity='precomputed', random_state=42).fit(similarity_matrix)
+    except RuntimeWarning:
+        print(
+            f"Failed to perform spectral clustering on graph with {len(G.nodes())} nodes and {K} clusters. Ignoring this graph.")
+        return []
+    return clustering.labels_
+
+
+def plot_graph_with_clusters(G, clusters):
+    nodes_list = list(G.nodes())
+
+    # Ensure clusters has an entry for each node
+    if len(clusters) != len(nodes_list):
+        print("Mismatch between nodes and clusters. Skipping plot.")
+        return
+
+    color_map = [clusters[i] for i, node in enumerate(nodes_list)]
+    pos = nx.spring_layout(G, k=0.05)
+    nx.draw(G, pos, node_size=10, node_color=color_map, edge_color='gray')
+    return G
 
 
 def save_to_file(ctr):
@@ -486,7 +442,7 @@ def results_for_one_graph(num_walks, walk_length, k):
         clusters = SCG(G, k)
         G = plot_graph_with_clusters(G, clusters)
 
-        save_to_group_file(i)
+        save_to_group_file(i+1)
         # Print the nodes in each group
         # for j, group in enumerate(groups):
         #     print(f"Group {j + 1}: {group.nodes()}")

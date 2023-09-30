@@ -106,9 +106,9 @@ def analyze(comment):
 def make_tree(submission, post1):
     tree = []
     comment_stack = submission.comments[:]
-    submission.comments.replace_more(limit=20)
+    submission.comments.replace_more(limit=100)
     count = 0
-    while comment_stack and count < 200:
+    while comment_stack and count < 1000:
         comment = comment_stack.pop(0)
         if isinstance(comment, MoreComments):
             continue
