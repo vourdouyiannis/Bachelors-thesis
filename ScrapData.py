@@ -1,6 +1,5 @@
 # VOURDOUGIANNIS DIMITRIOS 4326 #
 
-import os
 import json
 import praw
 from praw.models import MoreComments
@@ -14,13 +13,13 @@ reddit = praw.Reddit(client_id="uvhJFnUWQzUbuWpS2OIDWQ", client_secret="PTog9qkG
 # For subreddit "COVID19"/"atheism"/"Christianity"
 # Search the keyword "vaccine"/"deaths"/"jesus"
 # Get the top/most relevant 5 posts
-subreddit1 = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=50)  # 43
+subreddit1 = reddit.subreddit("COVID19").search("vaccine", sort="top", limit=500)  # 140 acceptable posts
 
-subreddit2 = reddit.subreddit("COVID19").search("deaths", sort="top", limit=50)  # 32
+subreddit2 = reddit.subreddit("COVID19").search("deaths", sort="top", limit=500)  # 54 acceptable posts
 
-subreddit3 = reddit.subreddit("atheism").search("jesus", sort="Relevance", limit=50)  # 50
+subreddit3 = reddit.subreddit("atheism").search("jesus", sort="Relevance", limit=500)  # 217 acceptable posts
 
-subreddit4 = reddit.subreddit("Christianity").search("jesus", sort="Relevance", limit=50)  # 50
+subreddit4 = reddit.subreddit("Christianity").search("jesus", sort="Relevance", limit=500)  # 207 acceptable posts
 
 subreddits = [subreddit1, subreddit2, subreddit3, subreddit4]
 posts = []
@@ -108,7 +107,7 @@ def make_tree(submission, post1):
     comment_stack = submission.comments[:]
     submission.comments.replace_more(limit=100)
     count = 0
-    while comment_stack and count < 1000:
+    while comment_stack and count < 2000:
         comment = comment_stack.pop(0)
         if isinstance(comment, MoreComments):
             continue
@@ -138,17 +137,6 @@ def make_tree(submission, post1):
     else:
         all_comments_controversial.append(comments)
 
-    # if os.path.isfile(comments_file_name) and os.path.getsize(comments_file_name) > 0:
-    #     with open(comments_file_name, 'r') as f:
-    #         data = json.load(f)
-    #
-    #     data.append(comments)
-    #
-    #     with open(comments_file_name, 'w') as f:
-    #         json.dump(data, f)
-    # else:
-    #     with open(comments_file_name, 'w') as f:
-    #         json.dump([comments], f)
 
 with open('resources/posts.json', 'r') as f:
     posts_dict = json.load(f)

@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="17832468-c153-4c03-a78e-6b3a0b426139" name="Changes" comment="Updated">
+      <change beforePath="$PROJECT_DIR$/Polarization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Polarization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScrapData.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScrapData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/delete_later.txt" beforeDir="false" afterPath="$PROJECT_DIR$/delete_later.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post0_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post0_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post100_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post100_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post101_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post101_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post102_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post102_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post103_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post103_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post104_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post104_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post105_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post105_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post106_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post106_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post107_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post107_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post108_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post108_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post109_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post109_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post10_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post10_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post110_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post110_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post111_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post111_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post112_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post112_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post113_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post113_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post114_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post114_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post115_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post115_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post116_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post116_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post117_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post117_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post118_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post118_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post119_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post119_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post11_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post11_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post120_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post120_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post121_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post121_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post122_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post122_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post123_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post123_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post124_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post124_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post125_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post125_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post126_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post126_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post127_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post127_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post128_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post128_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post129_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post129_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post12_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post12_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post130_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post130_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post131_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post131_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post132_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post132_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post133_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post133_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post134_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post134_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post135_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post135_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post136_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post136_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post137_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post137_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post138_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post138_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post139_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post139_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post13_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post13_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post140_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post140_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post141_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post141_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post142_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post142_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post143_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post143_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post144_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post144_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post145_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post145_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post146_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post146_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post147_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post147_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post148_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post148_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post149_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post149_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post14_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post14_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post150_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post150_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post151_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post151_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post152_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post152_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post153_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post153_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post154_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post154_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post155_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post155_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post156_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post156_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post157_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post157_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post158_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post158_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post159_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post159_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post15_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post15_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post160_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post160_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post161_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post161_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post162_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post162_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post163_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post163_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post164_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post164_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post165_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post165_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post166_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post166_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post167_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post167_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post168_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post168_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post169_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post169_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post16_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post16_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post170_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post170_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post171_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post171_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post17_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post17_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post18_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post18_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post19_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post19_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post1_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post1_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post20_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post20_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post21_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post21_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post22_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post22_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post23_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post23_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post24_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post24_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post25_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post25_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post26_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post26_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post27_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post27_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post28_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post28_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post29_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post29_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post2_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post2_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post30_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post30_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post31_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post31_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post32_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post32_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post33_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post33_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post34_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post34_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post35_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post35_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post36_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post36_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post37_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post37_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post38_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post38_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post39_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post39_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post3_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post3_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post40_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post40_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post41_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post41_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post42_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post42_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post43_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post43_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post44_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post44_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post45_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post45_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post46_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post46_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post47_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post47_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post48_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post48_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post49_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post49_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post4_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post4_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post50_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post50_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post51_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post51_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post52_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post52_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post53_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post53_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post54_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post54_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post55_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post55_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post56_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post56_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post57_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post57_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post58_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post58_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post59_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post59_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post5_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post5_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post60_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post60_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post61_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post61_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post62_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post62_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post63_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post63_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post64_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post64_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post65_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post65_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post66_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post66_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post67_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post67_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post68_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post68_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post69_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post69_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post6_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post6_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post70_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post70_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post71_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post71_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post72_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post72_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post73_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post73_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post74_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post74_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post75_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post75_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post76_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post76_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post77_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post77_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post78_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post78_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post79_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post79_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post7_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post7_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post80_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post80_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post81_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post81_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post82_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post82_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post83_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post83_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post84_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post84_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post85_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post85_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post86_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post86_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post87_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post87_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post88_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post88_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post89_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post89_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post8_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post8_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post90_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post90_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post91_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post91_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post92_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post92_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post93_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post93_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post94_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post94_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post95_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post95_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post96_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post96_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post97_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post97_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post98_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post98_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post99_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post99_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts/Post9_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/all_posts/Post9_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post10_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post11_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post12_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post13_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post14_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post15_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post16_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post17_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post18_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post19_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post1_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post20_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post21_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post22_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post23_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post24_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post25_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post26_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post27_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post28_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post29_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post2_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post30_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post31_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post32_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post33_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post34_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post35_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post36_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post37_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post38_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post39_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post3_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post40_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post41_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post42_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post43_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post44_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post45_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post46_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post47_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post48_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post49_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post4_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post50_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post51_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post52_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post53_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post54_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post55_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post56_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post57_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post58_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post59_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post5_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post60_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post61_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post62_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post63_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post64_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post65_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post66_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post67_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post68_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post69_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post6_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post70_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post71_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post72_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post73_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post74_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post7_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post8_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/all_posts_grouped/Post9_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts19_and_20_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts19_and_20_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts20_and_21_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts20_and_21_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts21_and_22_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts21_and_22_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts22_and_23_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts26_and_27_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts26_and_27_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts33_and_34_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts33_and_34_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts35_and_36_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts36_and_37_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts36_and_37_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts37_and_38_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts37_and_38_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts38_and_39_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts38_and_39_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts45_and_46_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts46_and_47_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts46_and_47_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts4_and_5_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts4_and_5_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts53_and_54_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts53_and_54_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts54_and_55_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts54_and_55_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts55_and_56_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts55_and_56_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts56_and_57_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts56_and_57_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts58_and_59_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts5_and_6_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts5_and_6_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts64_and_65_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts66_and_67_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts68_and_69_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts68_and_69_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts6_and_7_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts6_and_7_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts71_and_72_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts73_and_74_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts73_and_74_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts86_and_87_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts8_and_9_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts8_and_9_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts95_and_96_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/controversial/Posts95_and_96_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts96_and_97_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/controversial/Posts9_and_10_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts10_and_11_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts10_and_11_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts11_and_12_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts11_and_12_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts12_and_13_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts12_and_13_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts13_and_14_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts13_and_14_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts14_and_15_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts14_and_15_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts15_and_16_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts15_and_16_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts16_and_17_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts16_and_17_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts18_and_19_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts18_and_19_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts19_and_20_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts19_and_20_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts1_and_2_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts1_and_2_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts21_and_22_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts21_and_22_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts22_and_23_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts22_and_23_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts23_and_24_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts23_and_24_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts27_and_28_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts27_and_28_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts28_and_29_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts28_and_29_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts29_and_30_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts29_and_30_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts2_and_3_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts2_and_3_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts30_and_31_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts30_and_31_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts31_and_32_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts31_and_32_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts32_and_33_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts32_and_33_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts33_and_34_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts33_and_34_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts34_and_35_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts34_and_35_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts37_and_38_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts37_and_38_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts38_and_39_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts38_and_39_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts40_and_41_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts40_and_41_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts41_and_42_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts41_and_42_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts42_and_43_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts42_and_43_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts44_and_45_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts45_and_46_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts45_and_46_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts46_and_47_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts46_and_47_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts47_and_48_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts47_and_48_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts49_and_50_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts49_and_50_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts4_and_5_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts4_and_5_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts50_and_51_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts50_and_51_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts53_and_54_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts57_and_58_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts5_and_6_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts5_and_6_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts63_and_64_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts64_and_65_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts65_and_66_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts67_and_68_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts67_and_68_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts69_and_70_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts6_and_7_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts6_and_7_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts70_and_71_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts70_and_71_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts73_and_74_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts73_and_74_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts74_and_75_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts74_and_75_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts7_and_8_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts7_and_8_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts8_and_9_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts8_and_9_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphs/non_controversial/Posts9_and_10_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphs/non_controversial/Posts9_and_10_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/comments_controversial.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/comments_controversial.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/comments_non_controversial.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/comments_non_controversial.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/posts.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/posts.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KdWtl1nbYSdegx3LkZBstzM9y1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/vourd/PycharmProjects/diplwmatikh&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17832468-c153-4c03-a78e-6b3a0b426139" name="Changes" comment="" />
+      <created>1674305156938</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674305156938</updated>
+      <workItem from="1674305162235" duration="10098000" />
+      <workItem from="1674729370514" duration="780000" />
+      <workItem from="1674730186456" duration="36000" />
+      <workItem from="1674913472431" duration="1998000" />
+      <workItem from="1675438029332" duration="9599000" />
+      <workItem from="1675510253461" duration="6524000" />
+      <workItem from="1675600627137" duration="7014000" />
+      <workItem from="1675803674992" duration="3064000" />
+      <workItem from="1676639254806" duration="1860000" />
+      <workItem from="1676920652379" duration="17000" />
+      <workItem from="1677154758306" duration="5271000" />
+      <workItem from="1677840034954" duration="10392000" />
+      <workItem from="1678212334795" duration="6588000" />
+      <workItem from="1679058048598" duration="4404000" />
+      <workItem from="1679411735518" duration="1954000" />
+      <workItem from="1679499181211" duration="937000" />
+      <workItem from="1679656964866" duration="6568000" />
+      <workItem from="1680007236032" duration="12849000" />
+      <workItem from="1681061400578" duration="5143000" />
+      <workItem from="1681122352939" duration="11398000" />
+      <workItem from="1681211531548" duration="3852000" />
+      <workItem from="1681294212481" duration="5772000" />
+      <workItem from="1681636180418" duration="2688000" />
+      <workItem from="1682594221236" duration="14042000" />
+      <workItem from="1683021273288" duration="3803000" />
+      <workItem from="1683638452676" duration="779000" />
+      <workItem from="1684324735736" duration="476000" />
+      <workItem from="1687368908671" duration="1666000" />
+      <workItem from="1687442223380" duration="1585000" />
+      <workItem from="1688129446465" duration="6217000" />
+      <workItem from="1688728069600" duration="5493000" />
+      <workItem from="1688822310823" duration="210000" />
+      <workItem from="1688921633059" duration="4994000" />
+      <workItem from="1689002271253" duration="618000" />
+      <workItem from="1689079020981" duration="2023000" />
+      <workItem from="1689177322855" duration="1868000" />
+      <workItem from="1689247376115" duration="5137000" />
+      <workItem from="1689268278551" duration="798000" />
+      <workItem from="1689347143245" duration="3142000" />
+      <workItem from="1689618531741" duration="853000" />
+      <workItem from="1689683132516" duration="119000" />
+      <workItem from="1689689502219" duration="33000" />
+      <workItem from="1689701034599" duration="5949000" />
+      <workItem from="1689711259061" duration="1208000" />
+      <workItem from="1689762007675" duration="141000" />
+      <workItem from="1689873446571" duration="4194000" />
+      <workItem from="1689944495852" duration="1558000" />
+      <workItem from="1690040483639" duration="1315000" />
+      <workItem from="1690045239238" duration="2074000" />
+      <workItem from="1690228065023" duration="172000" />
+      <workItem from="1690624302491" duration="3339000" />
+      <workItem from="1690735088104" duration="1434000" />
+      <workItem from="1690811253400" duration="2869000" />
+      <workItem from="1691334332602" duration="12038000" />
+      <workItem from="1691845151597" duration="3916000" />
+      <workItem from="1691943781008" duration="2912000" />
+      <workItem from="1692024248935" duration="860000" />
+      <workItem from="1692123034745" duration="1892000" />
+      <workItem from="1692175846034" duration="1739000" />
+      <workItem from="1692267587271" duration="6845000" />
+      <workItem from="1692368043824" duration="740000" />
+      <workItem from="1692543205231" duration="5124000" />
+      <workItem from="1692652293834" duration="14897000" />
+      <workItem from="1692882428162" duration="1341000" />
+      <workItem from="1693209465706" duration="2915000" />
+      <workItem from="1693218203593" duration="6321000" />
+      <workItem from="1694118561811" duration="6459000" />
+      <workItem from="1694172520690" duration="33016000" />
+      <workItem from="1694959674526" duration="13054000" />
+      <workItem from="1695467119366" duration="418000" />
+      <workItem from="1695467556473" duration="4136000" />
+      <workItem from="1695819108672" duration="18387000" />
+      <workItem from="1696585742873" duration="6471000" />
+    </task>
+    <task id="LOCAL-00001" summary="Cleaned data, the tree is probably ready, need some small changes later, for better visualization">
+      <created>1675461679949</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1675461679949</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Cleaned data, the tree is ready after fixing some errors">
+      <created>1675806606220</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675806606220</updated>
+    </task>
+    <task id="LOCAL-00003" summary="The data are now stored into json files. Need some more changes.">
+      <created>1677852570137</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1677852570137</updated>
+    </task>
+    <task id="LOCAL-00004" summary="The data are now stored into json files.">
+      <created>1678214610517</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678214610517</updated>
+    </task>
+    <task id="LOCAL-00005" summary="The comments are stored here.">
+      <created>1678214740926</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678214740926</updated>
+    </task>
+    <task id="LOCAL-00006" summary="New file, I will code the plots here">
+      <created>1678215209598</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1678215209598</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Made a template for the graphs.">
+      <created>1679490058725</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1679490058725</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed small mistakes">
+      <created>1679663315901</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1679663315901</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Re-organized the files">
+      <created>1680011986633</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1680011986633</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added the edges, there is more work to do.">
+      <created>1680012037872</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1680012037872</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Updated.">
+      <created>1680174842314</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1680174842314</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Updated">
+      <created>1683025266280</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683025266280</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Updated">
+      <created>1683025290855</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683025290855</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Updated">
+      <created>1689179177293</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1689179177293</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Updated">
+      <created>1690624346539</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1690624346539</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Updated">
+      <created>1692732357627</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1692732357627</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Updated">
+      <created>1692783330252</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1692783330252</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Updated">
+      <created>1695467295821</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1695467295821</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Updated">
+      <created>1696114824530</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1696114824530</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cleaned data, the tree is probably ready, need some small changes later, for better visualization" />
+    <MESSAGE value="Cleaned data, the tree is ready after fixing some errors" />
+    <MESSAGE value="The data are now stored into json files. Need some more changes." />
+    <MESSAGE value="The data are now stored into json files." />
+    <MESSAGE value="The comments are stored here." />
+    <MESSAGE value="New file, I will code the plots here" />
+    <MESSAGE value="Made a template for the graphs." />
+    <MESSAGE value="Fixed small mistakes" />
+    <MESSAGE value="Re-organized the files" />
+    <MESSAGE value="Added the edges, there is more work to do." />
+    <MESSAGE value="Updated." />
+    <MESSAGE value="Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/diplwmatikh$CommentAnalysis.coverage" NAME="CommentAnalysis Coverage Results" MODIFIED="1683021372109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplwmatikh$Polarization.coverage" NAME="Polarization Coverage Results" MODIFIED="1696609384735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplwmatikh$test.coverage" NAME="test Coverage Results" MODIFIED="1678127864817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplwmatikh$ScrapData.coverage" NAME="ScrapData Coverage Results" MODIFIED="1696233054302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplwmatikh$make_plots.coverage" NAME="make_plots Coverage Results" MODIFIED="1682774749473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplwmatikh$MakePlots.coverage" NAME="MakePlots Coverage Results" MODIFIED="1691516121803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplwmatikh$scrap_data.coverage" NAME="scrap_data Coverage Results" MODIFIED="1682597473887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

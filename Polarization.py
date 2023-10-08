@@ -1,12 +1,10 @@
 # VOURDOUGIANNIS DIMITRIOS 4326 #
 
+import os
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
 import random
-from sklearn.cluster import SpectralClustering
-from sklearn.metrics.pairwise import rbf_kernel
 
 # Read data from JSON files
 with open('resources/comments_non_controversial.json', 'r') as f:
@@ -167,9 +165,6 @@ def create_graph(post):
             mean_sentiment = accumulated_sentiments[author] / node_counts[author]
             G.nodes[author]['label'] = mean_sentiment
 
-    # An enas xrhsths exei sxoliasei panw apo mia fora se ena grafhma h kai se duo mazi tote upologizetai o mesos oros twn sxoliwn
-    # kai mpainei sto grafhma o mesos oros aftos /TODO DELETE
-
     # Add edges to the graph
     create_edges(G, post)
 
@@ -179,8 +174,8 @@ def create_graph(post):
     return G
 
 
-# Create a graph for two different posts
 def create_graph2(post1, post2):
+    # Create a graph for two different posts
     graph1 = create_graph(post1)
     graph2 = create_graph(post2)
 
@@ -254,7 +249,6 @@ def calculate_polarization_score(G, polarity_dict, num_walks, walk_length):
         # Add up the absolute difference between expected and actual values
         total_difference += abs(expected_value - actual_value)
 
-        # Increment the count of nodes processed
         num_nodes += 1
 
     # Average the total difference to get the final polarization score
@@ -332,49 +326,6 @@ def compute_expected_sentiment(node, G):
     return weighted_sum / total_weight if total_weight != 0 else 0
 
 
-def SCG(G, K):
-    # Remove isolated nodes
-    G.remove_nodes_from(list(nx.isolates(G)))
-
-    # Use adjacency matrix
-    adj_matrix = nx.adjacency_matrix(G).todense()
-
-    # Convert the adjacency matrix to a similarity matrix using Gaussian kernel
-    similarity_matrix = rbf_kernel(adj_matrix)
-
-    # Check for NaN values
-    if np.any(np.isnan(similarity_matrix)):
-        print("Similarity matrix contains NaN values!")
-
-    # Check if the number of nodes is less than the number of clusters you want
-    if len(G.nodes()) <= K:
-        print(f"Graph has {len(G.nodes())} nodes, which is less than {K} clusters. Ignoring this graph.")
-        return []
-
-    try:
-        # Apply Spectral Clustering
-        clustering = SpectralClustering(n_clusters=K, affinity='precomputed', random_state=42).fit(similarity_matrix)
-    except RuntimeWarning:
-        print(
-            f"Failed to perform spectral clustering on graph with {len(G.nodes())} nodes and {K} clusters. Ignoring this graph.")
-        return []
-    return clustering.labels_
-
-
-def plot_graph_with_clusters(G, clusters):
-    nodes_list = list(G.nodes())
-
-    # Ensure clusters has an entry for each node
-    if len(clusters) != len(nodes_list):
-        print("Mismatch between nodes and clusters. Skipping plot.")
-        return
-
-    color_map = [clusters[i] for i, node in enumerate(nodes_list)]
-    pos = nx.spring_layout(G, k=0.05)
-    nx.draw(G, pos, node_size=10, node_color=color_map, edge_color='gray')
-    return G
-
-
 def save_to_file(ctr):
     # Save each graph to a file
     filename = "graphs/all_posts/Post{}_graph.png".format(ctr)
@@ -393,14 +344,44 @@ def save_to_file2(ctr, contr):
     plt.clf()
 
 
-def save_to_group_file(ctr):
-    # Save each graph to a file
-    filename = "graphs/all_posts_grouped/Post{}_graph.png".format(ctr)
-    plt.savefig(filename)
-    plt.clf()
+def write_to_file(filename, content):
+    """Utility function to write content to a file."""
+    with open("results/" + filename, 'a') as f:  # Using 'a' mode to append to the file
+        f.write(content + "\n")
 
 
-def results_for_one_graph(num_walks, walk_length, k):
+def clear_the_file(filename):
+    try:
+        if os.path.getsize("results/"+filename) > 0:  # Check if the file is not empty
+            with open("results/"+filename, 'w') as f:
+                f.write('')  # Write an empty string to clear the file
+    except FileNotFoundError:
+        pass  # If the file does not exist, it's okay - it will be created when written to
+
+
+def calculate_average_score(filename):
+    """Calculate the average score from a file and write it at the top."""
+    with open("results/"+filename, 'r') as f:
+        lines = f.readlines()
+
+    # Extract scores from the lines
+    scores = []
+    for line in lines:
+        try:
+            score = float(line.split(":")[-1].strip())
+            scores.append(score)
+        except ValueError:
+            continue  # Skip non-score lines
+
+    average_score = sum(scores) / len(scores) if scores else 0
+
+    # Write the average followed by the original content back to the file
+    with open("results/"+filename, 'w') as f:
+        f.write(f"Average Polarization Score: {average_score:.3f}\n\n")
+        f.writelines(lines)
+
+
+def results_for_one_graph(num_walks, walk_length):
     """
     The reason that the graph is drawn here
     is that we don't want to be drawn
@@ -429,23 +410,15 @@ def results_for_one_graph(num_walks, walk_length, k):
         save_to_file(i)
 
         polarization_score = calculate_polarization_score(G, polarity_dict, num_walks, walk_length)
-        print(f"Polarization score - Random walk - for post {i+1}: {polarization_score}")
-
-        # Detect groups based on agreement using SCG
-        # groups = SCG(G, kmeans)
+        print(f"Non-Controversial: Polarization score - Random walk - for post {i+1}: {polarization_score}")
+        write_to_file('non_controversial_1graph_random_walk.txt',
+                      f"Post {i + 1}: {polarization_score}")
 
         polarization_score2 = compute_polarization_score_from_edges(G)
-        print(f"Polarization score - from edges - for post {i+1}: {polarization_score2}")
+        print(f"Non-Controversial: Polarization score - from edges - for post {i+1}: {polarization_score2}")
+        write_to_file('non_controversial_1graph_weighted_edges.txt',
+                      f"Post {i + 1}: {polarization_score2}")
         print("---------------------------------------------")
-
-        # Detect groups and draw them
-        clusters = SCG(G, k)
-        G = plot_graph_with_clusters(G, clusters)
-
-        save_to_group_file(i+1)
-        # Print the nodes in each group
-        # for j, group in enumerate(groups):
-        #     print(f"Group {j + 1}: {group.nodes()}")
 
 
     for i in range(len(comments_controversial)):
@@ -470,23 +443,18 @@ def results_for_one_graph(num_walks, walk_length, k):
         save_to_file(len(comments_non_controversial)+i)
 
         polarization_score = calculate_polarization_score(G, polarity_dict, num_walks, walk_length)
-        print(f"Polarization score - Random walk - for post {len(comments_non_controversial) + i + 1}: {polarization_score}")
-
-        # Detect groups based on agreement using SCG
-        # groups = SCG(G, kmeans)
-
-        # clusters = SCG(G, k)
-        # plot_graph_with_clusters(G, clusters)
+        print(f"Controversial: Polarization score - Random walk - for post {len(comments_non_controversial) + i + 1}: {polarization_score}")
+        write_to_file('controversial_1graph_random_walk.txt',
+                      f"Post {len(comments_non_controversial) + i + 1}: {polarization_score}")
 
         polarization_score2 = compute_polarization_score_from_edges(G)
-        print(f"Polarization score - from edges - for post {len(comments_non_controversial) + i + 1}: {polarization_score2}")
+        print(f"Controversial: Polarization score - from edges - for post {len(comments_non_controversial) + i + 1}: {polarization_score2}")
+        write_to_file('controversial_1graph_weighted_edges.txt',
+                      f"Post {len(comments_non_controversial) + i + 1}: {polarization_score2}")
         print("---------------------------------------------")
-        # Print the nodes in each group
-        # for j, group in enumerate(groups):
-        #     print(f"Group {j + 1}: {group.nodes()}")
 
 
-def results_for_two_graphs(num_walks, walk_length, k):
+def results_for_two_graphs(num_walks, walk_length):
     counter = 0
     for i in range(len(comments_non_controversial) - 1):
         polarity_dict = {}
@@ -505,18 +473,16 @@ def results_for_two_graphs(num_walks, walk_length, k):
             save_to_file2(i+1, 0)
 
             polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
-            print("Non-Controversial: Polarization score - Random walk - for posts {} and {}: {}".format(i+1, i + 2, polarization_score))
-
-            # Detect groups based on agreement using SCG
-            # groups = SCG(G2, kmeans)
+            print("Non-Controversial: Polarization score - Random walk - for posts {} and {}: {}".format(i + 1, i + 2, polarization_score))
+            write_to_file('non_controversial_2graphs_random_walk.txt',
+                          f"Posts {i + 1} and {i + 2}: {polarization_score}")
 
             polarization_score2 = compute_polarization_score_from_edges(G2)
-            print("Non-Controversial: Polarization score - From edges - for posts {} and {}: {}".format(i+1, i + 2, polarization_score2))
+            print("Non-Controversial: Polarization score - From edges - for posts {} and {}: {}".format(i + 1, i + 2, polarization_score2))
+            write_to_file('non_controversial_2graphs_weighted_edges.txt',
+                          f"Posts {i + 1} and {i + 2}: {polarization_score2}")
 
             print("---------------------------------------------")
-            # Print the nodes in each group
-            # for j, group in enumerate(groups):
-            #     print(f"Group {j + 1}: {group.nodes()}")
 
     print("#############################################")
     for i in range(len(comments_controversial) - 1):
@@ -534,30 +500,41 @@ def results_for_two_graphs(num_walks, walk_length, k):
             for comment in comments_controversial[i + 1]:
                 polarity_dict[comment['author']] = float(comment['sentiment']) if comment['sentiment'] != '' else 0.0
 
-            save_to_file2(i+1, 1)
+            save_to_file2(i + 1, 1)
 
             polarization_score = calculate_polarization_score(G2, polarity_dict, num_walks, walk_length)
-            print("Controversial: Polarization score - Random walk - for posts {} and {}: {}".format(i+1, i + 2, polarization_score))
-
-            # Detect groups based on agreement using SCG
-            # groups = SCG(G2, kmeans)
+            print("Controversial: Polarization score - Random walk - for posts {} and {}: {}".format(i + 1, i + 2, polarization_score))
+            write_to_file('controversial_2graphs_random_walk.txt', f"Posts {i + 1} and {i + 2}: {polarization_score}")
 
             polarization_score2 = compute_polarization_score_from_edges(G2)
             print("Controversial: Polarization score - From edges - for posts {} and {}: {}".format(i + 1, i + 2, polarization_score2))
+            write_to_file('controversial_2graphs_weighted_edges.txt',
+                          f"Posts {i + 1} and {i + 2}: {polarization_score2}")
             print("---------------------------------------------")
-            # Print the nodes in each group
-            # for j, group in enumerate(groups):
-            #     print(f"Group {j + 1}: {group.nodes()}")
 
 
 num_walks = 100  # Number of random walks to perform from each node
 walk_length = 10  # Length of each random walk
-k = 3  # The number of the groups I want to detect
+
+# Clear the files before you run the processes
+files_to_check = [
+    'non_controversial_1graph_random_walk.txt',
+    'non_controversial_1graph_weighted_edges.txt',
+    'non_controversial_2graphs_random_walk.txt',
+    'non_controversial_2graphs_weighted_edges.txt',
+    'controversial_1graph_random_walk.txt',
+    'controversial_1graph_weighted_edges.txt',
+    'controversial_2graphs_random_walk.txt',
+    'controversial_2graphs_weighted_edges.txt'
+]
+for file in files_to_check:
+    clear_the_file(file)
 
 # Run the processes
-results_for_one_graph(num_walks, walk_length, k)
+results_for_one_graph(num_walks, walk_length)
 print("#############################################")
 print("#############################################")
-results_for_two_graphs(num_walks, walk_length, k)
+results_for_two_graphs(num_walks, walk_length)
 
-
+for file in files_to_check:
+    calculate_average_score(file)

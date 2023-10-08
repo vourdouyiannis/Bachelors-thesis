@@ -547,4 +547,83 @@ results_for_one_graph(counter, num_walks, walk_length, k)
 results_for_two_graphs(counter, controversial, num_walks, walk_length, k)
 
 
-# des sto github kai ksanagurna ekei giati kati exei loustei asxhma...
+# here
+
+
+# def SCG(G, K):
+#     # Remove isolated nodes
+#     G.remove_nodes_from(list(nx.isolates(G)))
+#
+#     # Use adjacency matrix
+#     adj_matrix = nx.adjacency_matrix(G).todense()
+#
+#     # Convert the adjacency matrix to a similarity matrix using Gaussian kernel
+#     similarity_matrix = rbf_kernel(adj_matrix)
+#
+#     # Check for NaN values
+#     if np.any(np.isnan(similarity_matrix)):
+#         print("Similarity matrix contains NaN values!")
+#
+#     # Check if the number of nodes is less than the number of clusters you want
+#     if len(G.nodes()) <= K:
+#         print(f"Graph has {len(G.nodes())} nodes, which is less than {K} clusters. Ignoring this graph.")
+#         return []
+#
+#     try:
+#         # Apply Spectral Clustering
+#         clustering = SpectralClustering(n_clusters=K, affinity='precomputed', random_state=42).fit(similarity_matrix)
+#     except RuntimeWarning:
+#         print(
+#             f"Failed to perform spectral clustering on graph with {len(G.nodes())} nodes and {K} clusters. Ignoring this graph.")
+#         return []
+#     return clustering.labels_
+#
+#
+# def plot_graph_with_clusters(G, clusters):
+#     nodes_list = list(G.nodes())
+#
+#     # Ensure clusters has an entry for each node
+#     if len(clusters) != len(nodes_list):
+#         print("Mismatch between nodes and clusters. Skipping plot.")
+#         return
+#
+#     color_map = [clusters[i] for i, node in enumerate(nodes_list)]
+#     pos = nx.spring_layout(G, k=0.05)
+#     nx.draw(G, pos, node_size=10, node_color=color_map, edge_color='gray')
+#     return G
+
+
+1.1	Ο Αλγόριθμος “SCG”
+	Σκοπός
+Ο αλγόριθμος SCG στοχεύει να εντοπίσει και να ομαδοποιήσει τους κόμβους στο γράφημα με βάση τις βαθμολογίες «συναισθημάτων» τους. Συγκεντρώνει κόμβους που έχουν σχεδόν κοινές «συναισθηματικές» τιμές, αποκαλύπτοντας ουσιαστικά μοτίβα ή κοινότητες στο γράφημα όπου οι κόμβοι (ή οι συντάκτες σχολίων) μοιράζονται παρόμοια «συναισθήματα».
+
+	Αναλυτικά βήματα αλγορίθμου
+a)	Αρχικοποίηση και προκαταρκτικοί έλεγχοι:
+•	Αφαίρεση των απομονωμένων κόμβων από το γράφημα (σε περίπτωση που υπάρχουν).
+•	Ο πίνακας γειτνίασης του γραφήματος  υπολογίζεται χρησιμοποιώντας τη μέθοδο «adjacency_matrix» του «NetworkX». Αυτός ο πίνακας αντιπροσωπεύει ποιοι κόμβοι στο γράφημα είναι συνδεδεμένοι.
+•	Στη συνέχεια, χρησιμοποιείται η μέθοδος «Gauss» («rbf_kernel») για τη μετατροπή του πίνακα γειτνίασης σε έναν πίνακα ομοιότητας. Αυτό ουσιαστικά υπολογίζει την ομοιότητα μεταξύ των κόμβων με βάση τα μοτίβα συνδεσιμότητας τους.
+b)	Διασφάλιση της ακεραιότητας των δεδομένων:
+•	Ελέγχεται η ακεραιότητα των δεδομένων ώστε να μην υπάρχουν κενές τιμές.
+•	Υπάρχει επίσης ένας έλεγχος, για να δούμε εάν ο αριθμός των κόμβων είναι μικρότερος από τον αριθμό των συμπλεγμάτων (k) που θα σχηματιστούν.
+c)	Εκτέλεση αλγορίθμου «Spectral Clustering”:
+•	Ο πραγματικός αλγόριθμος εκτελείται στον πίνακα ομοιότητας χρησιμοποιώντας τη συνάρτηση «SpectralClustering» του «scikit-learn». Χρησιμοποιούνται οι παρακάτω εισόδοι:
+•	n_clusters=K: Αυτό ορίζει τον αριθμό των ομάδων σε έναν αριθμό K.
+•	affinity='precomputed': Αυτό λέει στη συνάρτηση να εκτελέσει τον αλγόριθμο στον πίνακα ομοιότητας.
+•	random_state=42: Αυτό διασφαλίζει ότι η ομαδοποίηση είναι τυχαία.
+•	Μόλις ολοκληρωθεί η ομαδοποίηση, η συνάρτηση επιστρέφει τις ετικέτες των κόμβων. Αυτές οι ετικέτες αντιπροσωπεύουν σε ποιο σύμπλεγμα ανήκει ένας κόμβος.
+d)	Εξαγωγή αποτελεσμάτων:
+	Ο αλγόριθμος παράγει ένα σύνολο ομάδων. Κάθε ομάδα περιέχει οντότητες που μοιράζονται παρόμοιες απόψεις και ιδεολογίες.
+
+	Λόγος πίσω από τη χρήση του «Spectral Clustering» και συμπεράσματα
+Το «Spectral Clustering» λειτουργεί χρησιμοποιώντας τις ιδιοτιμές του πίνακα ομοιότητας των δεδομένων για την εκτέλεση μείωσης διαστάσεων πριν από την ομαδοποίηση σε λιγότερες διαστάσεις. Η προσέγγιση είναι ιδιαίτερα κατάλληλη για ομαδοποίηση με βάση γραφήματα, δεδομένα με μη σφαιρικά σχήματα ή όταν τα συμπλέγματα είναι συνδεδεμένα αλλά όχι απαραίτητα συμπαγή ή ισορροπημένα. Ουσιαστικά, η ιδέα είναι ότι το γράφημα μπορεί να κοπεί (ή να διαχωριστεί) σε συστάδες έτσι ώστε οι κόμβοι μέσα στο ίδιο σύμπλεγμα να είναι πολύ παρόμοιοι, αλλά οι κόμβοι σε διαφορετικά συμπλέγματα να είναι ανόμοιοι.
+
+
+	Βιβλιοθήκη numpy
+Η βιβλιοθήκη numpy είναι ένα εργαλείο για επιστημονικούς υπολογισμούς στην Python. Παρέχει υποστήριξη για μεγάλους, απλούς και πολυδιάστατους πίνακες, μαζί με μια μεγάλη βιβλιοθήκη μαθηματικών συναρτήσεων υψηλού επιπέδου για τη λειτουργία αυτών των πινάκων. Στην εργασία βοήθησε στην εκτέλεση του αλγορίθμου “kmeans” που μας παρείχε η βιβλιοθήκη sklearn που θα αναφερθεί αργότερα.
+
+	Βιβλιοθήκη scikit-learn – Spectral Clustering algorithm
+Η φασματική ομαδοποίηση είναι μια τεχνική στην ανάλυση συστάδων όπου τα δεδομένα ομαδοποιούνται με βάση το φάσμα (ιδιοτιμές) του πίνακα ομοιότητας των δεδομένων. Είναι ιδιαίτερα χρήσιμο όταν η δομή των μεμονωμένων συστάδων είναι περίπλοκη και μη κυρτή, με το οποίο μια προσέγγιση ομαδοποίησης «K-means» θα δυσκολευόταν.
+
+	Βιβλιοθήκη scikit-learn – rbf_kernel technique 
+Η συνάρτηση «rbf_kernel» παρέχεται από τη λειτουργική μονάδα «sklearn» στη δημοφιλή βιβλιοθήκη «scikit-learn». Υπολογίζει τον πυρήνα της συνάρτησης ακτινικής βάσης (RBF) μεταξύ δύο συνόλων δειγμάτων. Ο πυρήνας RBF, που χρησιμοποιείται συχνά σε μηχανές υποστήριξης διανυσμάτων (SVM) και σε άλλα μοντέλα μηχανικής μάθησης. Στην παρούσα περίπτωση για τον αλγόριθμο «Spectral Clustering».
+
